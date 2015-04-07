@@ -12,3 +12,9 @@ bin/classes/edu/arizona/wood/tom/MainActivity.class
 bin/classes/edu/arizona/wood/tom/SplashActivity.class
 
 *.class
+
+*.dex
+
+bin/FoodCrack.apk
+
+bin/resources.ap_
