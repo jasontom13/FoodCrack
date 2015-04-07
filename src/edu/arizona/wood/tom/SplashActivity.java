@@ -8,5 +8,6 @@ public class SplashActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
+		DatabaseHelper.getDefaultInstance();
 	}
 }
