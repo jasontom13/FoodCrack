@@ -25,6 +25,9 @@
         <activity
             android:name="edu.arizona.wood.tom.LoginActivity">
         </activity>
+        <activity
+            android:name="edu.arizona.wood.tom.MainActivity">
+        </activity>
     </application>
 
 </manifest>

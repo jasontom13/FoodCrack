@@ -18,7 +18,7 @@ public final class R {
         public static final int toggleselector=0x7f020004;
     }
     public static final class id {
-        public static final int button1=0x7f060004;
+        public static final int loginButton=0x7f060004;
         public static final int nameField=0x7f060001;
         public static final int nameText=0x7f060000;
         public static final int passField=0x7f060003;
@@ -28,6 +28,7 @@ public final class R {
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
+        public static final int activity_splash=0x7f030002;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
