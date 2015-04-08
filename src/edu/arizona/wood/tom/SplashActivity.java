@@ -6,28 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class SplashActivity extends Activity{
+public class SplashActivity extends Activity {
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		 Handler handler=new Handler();
-	        handler.postDelayed(new Runnable()
-	        {               
-	            @Override
-	            public void run() 
-	            {
-	                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-	                startActivity(intent);
-	                SplashActivity.this.finish();                         
-	            }
-	        }, 1500);
-		
-		try {
-			DatabaseHelper.getDefaultInstance();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				Intent intent = new Intent(SplashActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				SplashActivity.this.finish();
+			}
+		}, 100); // Temp number for quicker testing
 	}
 }
