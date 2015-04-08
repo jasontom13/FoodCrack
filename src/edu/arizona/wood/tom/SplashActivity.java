@@ -1,15 +1,24 @@
 package edu.arizona.wood.tom;
 
-import edu.arizona.foodcrack.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
+
+import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
+
+import edu.arizona.foodcrack.R;
 
 public class SplashActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Strict mode fix
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+		
 		setContentView(R.layout.activity_splash);
 		Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {

@@ -21,13 +21,6 @@ public class MainActivity extends Activity {
 				R.layout.activity_main, null);
 
 		this.setContentView(root);
-
-		try {
-			DatabaseHelper.getDefaultInstance();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
