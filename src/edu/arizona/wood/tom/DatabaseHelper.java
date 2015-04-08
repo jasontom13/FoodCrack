@@ -27,4 +27,44 @@ public class DatabaseHelper {
 		
 		return defaultInstance;
 	}
+	
+	public UserResponse addUser(String username, String hash)
+	{
+		
+		return UserResponse.SUCCESS; // Only return true if successful
+	}
+	
+	public UserInfo getUserInfo(String username, String hash)
+	{
+		UserInfo info = null;
+		
+		return info;
+	}
+	
+	public boolean UpdateUserStats(String username, String hash, Statistics stats)
+	{
+		return true;
+	}
+	
+	public boolean AddQuestion()
+	{
+		return true;
+	}
+	
+	public Question getQuestion(int questionId)
+	{
+		Question question = null;
+		
+		return question;
+	}
+	
+	public int getNumQuestions()
+	{
+		return 0;
+	}
+	
+	public boolean removeQuestions(int questionId)
+	{
+		return true;
+	}
 }
