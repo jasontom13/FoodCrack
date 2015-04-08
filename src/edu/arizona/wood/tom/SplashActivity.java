@@ -23,6 +23,11 @@ public class SplashActivity extends Activity{
 	            }
 	        }, 1500);
 		
-		DatabaseHelper.getDefaultInstance();
+		try {
+			DatabaseHelper.getDefaultInstance();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

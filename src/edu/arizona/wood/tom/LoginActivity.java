@@ -16,7 +16,6 @@ public class LoginActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		Button login = (Button) findViewById(R.id.loginButton);
-		DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
 		EditText username = (EditText) findViewById(R.id.nameField);
 		EditText pass = (EditText) findViewById(R.id.passField);
 		

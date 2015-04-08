@@ -8,17 +8,23 @@ public class DatabaseHelper {
 	private static final String ACCESS_KEY = "AKIAI4CSISLJMKU3DWVQ";
 	private static final String SECRET_KEY = "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";
 	
-	private DatabaseHelper()
+	private DatabaseHelper() throws Exception
 	{
-		init();
+		String result = init();
+		if (!result.equals(""))
+		{
+			throw new Exception("Bad connection to AWS: " + result);
+		}
 	}
 	
-	private void init()
+	private String init()
 	{
 		AWSCredentials credentials = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
+		
+		return ""; // Empty string if successful connection
 	}
 	
-	public static DatabaseHelper getDefaultInstance()
+	public static DatabaseHelper getDefaultInstance() throws Exception
 	{
 		if (defaultInstance == null)
 		{
