@@ -1,5 +1,9 @@
 package edu.arizona.wood.tom;
 
+<<<<<<< HEAD
+=======
+import edu.arizona.wood.tom.FlyOutContainer;
+>>>>>>> origin/master
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +13,22 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import edu.arizona.foodcrack.R;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
 	FlyOutContainer root;
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> origin/master
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		this.root = (FlyOutContainer) this.getLayoutInflater().inflate(R.layout.activity_main, null);
-		
+
+		this.root = (FlyOutContainer) this.getLayoutInflater().inflate(
+				R.layout.activity_main, null);
+
 		this.setContentView(root);
 		Button newGameButton = (Button) findViewById(R.id.newGameButton);
 		newGameButton.setOnClickListener(new OnClickListener(){
@@ -39,8 +48,8 @@ public class MainActivity extends Activity{
 		getMenuInflater().inflate(R.menu.sample, menu);
 		return true;
 	}
-	
-	public void toggleMenu(View v){
+
+	public void toggleMenu(View v) {
 		this.root.toggleMenu();
 	}
 }
