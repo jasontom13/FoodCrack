@@ -1,13 +1,12 @@
 package edu.arizona.wood.tom;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
-
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-
 import edu.arizona.foodcrack.R;
 
 public class SplashActivity extends Activity {

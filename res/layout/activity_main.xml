@@ -13,19 +13,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="toggleMenu"
-            android:text="Button 1" />
+            android:background="@drawable/button_selector"
+            android:text="Achievements" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="toggleMenu"
-            android:text="Button 2" />
+            android:background="@drawable/button_selector"
+            android:text="Settings" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="toggleMenu"
-            android:text="Button 3" />
+            android:background="@drawable/button_selector"
+            android:text="Logout" />
     </LinearLayout>
 
     <LinearLayout

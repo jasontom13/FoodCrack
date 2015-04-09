@@ -1,9 +1,8 @@
 package edu.arizona.wood.tom;
 
-<<<<<<< HEAD
-=======
+
 import edu.arizona.wood.tom.FlyOutContainer;
->>>>>>> origin/master
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +15,7 @@ import edu.arizona.foodcrack.R;
 public class MainActivity extends Activity {
 
 	FlyOutContainer root;
-<<<<<<< HEAD
-	
-	
-=======
 
->>>>>>> origin/master
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
