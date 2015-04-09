@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp" >
+
+    <ImageView
+        android:id="@+id/foodImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight=".4"
+        android:src="@drawable/applelogo" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight=".2"
+        android:text="This is a question" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".4"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/selection1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="Yes"
+            android:background="@drawable/button_selector" />
+
+        <Button
+            android:id="@+id/selection2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="This is an answer"
+            android:background="@drawable/button_selector" />
+
+        <Button
+            android:id="@+id/selection3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="Much wow"
+            android:background="@drawable/button_selector" />
+
+        <Button
+            android:id="@+id/selection4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="Very impress"
+            android:background="@drawable/button_selector" />
+
+    </LinearLayout>
+
+</LinearLayout>
