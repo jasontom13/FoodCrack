@@ -10,23 +10,23 @@
         android:orientation="vertical" >
 
         <Button
+            android:id="@+id/achievementsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="toggleMenu"
             android:background="@drawable/button_selector"
             android:text="Achievements" />
 
         <Button
+            android:id="@+id/settingsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="toggleMenu"
             android:background="@drawable/button_selector"
             android:text="Settings" />
 
         <Button
+            android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="toggleMenu"
             android:background="@drawable/button_selector"
             android:text="Logout" />
     </LinearLayout>
