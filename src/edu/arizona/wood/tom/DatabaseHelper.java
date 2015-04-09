@@ -7,16 +7,10 @@ import android.util.Log;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedQueryList;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
-import com.amazonaws.services.dynamodbv2.model.Condition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
@@ -134,10 +128,23 @@ public class DatabaseHelper {
 	}
 
 	public UserResponse addUser(String username, String hash) {
+		// Check to see if already exists in database
+		Log.d(TAG, "Query active...");
+		try
+		{
+			User user = mapper.load(User.class, username);
+			if (user != null)
+			{
+				return UserResponse.EXISTS;
+			}
+		} catch (Exception e) {}
+		
+		// Build user to add
 		User user = new User();
 		user.setUsername(username);
 		user.setHashword(hash);
 		
+		// Add user to DB
 		try
 		{
 			mapper.save(user);
