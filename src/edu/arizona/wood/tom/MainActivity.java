@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				v.startAnimation(animAlpha);
 				Intent i = new Intent(MainActivity.this, GameActivity.class);	
+				startActivity(i);
 			}
 		});
 		

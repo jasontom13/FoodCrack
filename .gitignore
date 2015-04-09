@@ -2,19 +2,4 @@
 
 bin/*
 *.class
-<<<<<<< HEAD
 
-*.dex
-
-bin/FoodCrack.apk
-
-bin/resources.ap_
-
-*.class
-
-*.class
-
-*.class
-=======
-bin/classes.dex
->>>>>>> origin/master
