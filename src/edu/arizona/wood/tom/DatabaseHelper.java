@@ -123,6 +123,26 @@ public class DatabaseHelper {
 		if (defaultInstance == null) {
 			defaultInstance = new DatabaseHelper();
 		}
+		
+//		Question q = new Question();
+//		q.setCorrectResponse("Sup");
+//		q.setCreatedBy("Jason");
+//		q.setDateCreated("Today dummy");
+//		q.setImgUrl("www.nope.com");
+//		q.setLocationCreated("Earth");
+//		q.setQuestion("5 stars");
+//		q.setResponse1("no");
+//		q.setResponse2("no");
+//		q.setResponse3("no");
+//		
+//		try {
+//			Log.d(TAG, "Creating question");
+//			defaultInstance.mapper.save(q);
+//			Log.d(TAG, "Created");
+//		} catch (Exception e)
+//		{
+//			Log.e(TAG, "error", e);
+//		}
 
 		return defaultInstance;
 	}

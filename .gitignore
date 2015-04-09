@@ -2,4 +2,8 @@
 
 bin/*
 *.class
+<<<<<<< HEAD
 
+=======
+bin/classes.dex
+>>>>>>> origin/master
