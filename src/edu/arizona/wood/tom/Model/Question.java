@@ -1,5 +1,5 @@
 package edu.arizona.wood.tom.model;
 
-public class Statistics {
+public class Question {
 
 }

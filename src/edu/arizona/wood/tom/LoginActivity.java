@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import edu.arizona.foodcrack.R;
+import edu.arizona.wood.tom.model.User;
+import edu.arizona.wood.tom.model.UserResponse;
 
 public class LoginActivity extends Activity {
 	EditText username;
@@ -36,12 +39,28 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// Add to database when methods are implemented
-				// username.getText().toString();
-				// pass.getText().toString();
-				Intent i = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(i);
+				String name = username.getText().toString();
+				try {
+					MessageDigest md = MessageDigest.getInstance("SHA");
+					md.update(pass.getText().toString().getBytes("UTF-8"));
+					byte[] digest = md.digest();
+					String str = new String(digest);
+					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
+					User user = dh.getUser(name, str);
+					if (user != null)
+					{
+						// Yay, go to main activity, set global user
+						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(i);
+					}
+					else
+					{
+						// Could not find user in db
+						Toast.makeText(getApplicationContext(), "Could not authenticate credentials", Toast.LENGTH_SHORT).show();
+					}
+				} catch (Exception e) {
 
+				}
 			}
 
 		});
@@ -58,13 +77,24 @@ public class LoginActivity extends Activity {
 					byte[] digest = md.digest();
 					String str = new String(digest);
 					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
-					dh.addUser("Test", "Tester");
+					UserResponse response = dh.addUser(name, str);
+					if (response == UserResponse.SUCCESS)
+					{
+						// Yay temp toast for success
+						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
+						
+						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(i);
+					}
+					else if (response == UserResponse.FAILURE)
+					{
+						// Could not create
+						Toast.makeText(getApplicationContext(), "Could not create user: " + name, Toast.LENGTH_SHORT).show();
+					}
 				} catch (Exception e) {
 
 				}
 
-				Intent i = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(i);
 
 			}
 
