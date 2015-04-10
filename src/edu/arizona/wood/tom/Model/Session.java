@@ -2,7 +2,7 @@ package edu.arizona.wood.tom.model;
 
 public class Session {
 	public static Session defaultInstance;
-	public User loggedInUser;
+	private User loggedInUser;
 
 	private Session() {
 		this.loggedInUser = null;
