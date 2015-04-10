@@ -40,27 +40,29 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String name = username.getText().toString();
-				try {
-					MessageDigest md = MessageDigest.getInstance("SHA");
-					md.update(pass.getText().toString().getBytes("UTF-8"));
-					byte[] digest = md.digest();
-					String str = new String(digest);
-					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
-					User user = dh.getUser(name, str);
-					if (user != null)
-					{
-						// Yay, go to main activity, set global user
-						Intent i = new Intent(LoginActivity.this, MainActivity.class);
-						startActivity(i);
-					}
-					else
-					{
-						// Could not find user in db
-						Toast.makeText(getApplicationContext(), "Could not authenticate credentials", Toast.LENGTH_SHORT).show();
-					}
-				} catch (Exception e) {
-
-				}
+//				try {
+//					MessageDigest md = MessageDigest.getInstance("SHA");
+//					md.update(pass.getText().toString().getBytes("UTF-8"));
+//					byte[] digest = md.digest();
+//					String str = new String(digest);
+//					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
+//					User user = dh.getUser(name, str);
+//					if (user != null)
+//					{
+//						// Yay, go to main activity, set global user
+//						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//						startActivity(i);
+//					}
+//					else
+//					{
+//						// Could not find user in db
+//						Toast.makeText(getApplicationContext(), "Could not authenticate credentials", Toast.LENGTH_SHORT).show();
+//					}
+//				} catch (Exception e) {
+//
+//				}
+				Intent i = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(i);
 			}
 
 		});
@@ -85,6 +87,7 @@ public class LoginActivity extends Activity {
 						
 						Intent i = new Intent(LoginActivity.this, MainActivity.class);
 						startActivity(i);
+						LoginActivity.this.finish();
 					}
 					else if (response == UserResponse.FAILURE)
 					{
@@ -94,6 +97,7 @@ public class LoginActivity extends Activity {
 				} catch (Exception e) {
 
 				}
+				
 
 
 			}

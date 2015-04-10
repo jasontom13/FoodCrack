@@ -1,12 +1,15 @@
 package edu.arizona.wood.tom;
 
+
 import edu.arizona.wood.tom.FlyOutContainer;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import edu.arizona.foodcrack.R;
 
 public class MainActivity extends Activity {
@@ -21,6 +24,16 @@ public class MainActivity extends Activity {
 				R.layout.activity_main, null);
 
 		this.setContentView(root);
+		Button newGameButton = (Button) findViewById(R.id.newGameButton);
+		newGameButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(MainActivity.this, GameActivity.class);
+				
+			}
+			
+		});
 	}
 
 	@Override
