@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import edu.arizona.foodcrack.R;
+import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.User;
 import edu.arizona.wood.tom.model.UserResponse;
 
@@ -61,8 +62,14 @@ public class LoginActivity extends Activity {
 //				} catch (Exception e) {
 //
 //				}
+				User user= new User();
+				user.setUsername("Jason");
+				user.setHashword("Tom");
+				Session.getDefaultInstance().setLoggedInUser(user);
+				
 				Intent i = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(i);
+				LoginActivity.this.finish();
 			}
 
 		});
@@ -73,30 +80,38 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				// Add to database when methods are implemented
 				String name = username.getText().toString();
-				try {
-					MessageDigest md = MessageDigest.getInstance("SHA");
-					md.update(pass.getText().toString().getBytes("UTF-8"));
-					byte[] digest = md.digest();
-					String str = new String(digest);
-					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
-					UserResponse response = dh.addUser(name, str);
-					if (response == UserResponse.SUCCESS)
-					{
-						// Yay temp toast for success
-						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
-						
-						Intent i = new Intent(LoginActivity.this, MainActivity.class);
-						startActivity(i);
-						LoginActivity.this.finish();
-					}
-					else if (response == UserResponse.FAILURE)
-					{
-						// Could not create
-						Toast.makeText(getApplicationContext(), "Could not create user: " + name, Toast.LENGTH_SHORT).show();
-					}
-				} catch (Exception e) {
-
-				}
+//				try {
+//					MessageDigest md = MessageDigest.getInstance("SHA");
+//					md.update(pass.getText().toString().getBytes("UTF-8"));
+//					byte[] digest = md.digest();
+//					String str = new String(digest);
+//					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
+//					UserResponse response = dh.addUser(name, str);
+//					if (response == UserResponse.SUCCESS)
+//					{
+//						// Yay temp toast for success
+//						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
+//						
+//						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//						startActivity(i);
+//						LoginActivity.this.finish();
+//					}
+//					else if (response == UserResponse.FAILURE)
+//					{
+//						// Could not create
+//						Toast.makeText(getApplicationContext(), "Could not create user: " + name, Toast.LENGTH_SHORT).show();
+//					}
+//				} catch (Exception e) {
+//
+//				}
+				
+				User user= new User();
+				user.setUsername("Jason");
+				user.setHashword("Tom");
+				Session.getDefaultInstance().setLoggedInUser(user);
+				Intent i = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(i);
+				LoginActivity.this.finish();
 				
 
 
