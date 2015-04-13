@@ -28,6 +28,9 @@
         <activity
             android:name="edu.arizona.wood.tom.MainActivity">
         </activity>
+                <activity
+            android:name="edu.arizona.wood.tom.GameActivity">
+        </activity>
     </application>
 
 </manifest>

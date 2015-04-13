@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import edu.arizona.foodcrack.R;
+import edu.arizona.wood.tom.model.Question;
 
 public class MainActivity extends Activity {
 
@@ -20,7 +21,6 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
 		this.root = (FlyOutContainer) this.getLayoutInflater().inflate(
 				R.layout.activity_main, null);
 
@@ -33,7 +33,17 @@ public class MainActivity extends Activity {
 		newGameButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(animAlpha);
+				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
+				Question q = new Question();
+				q.setCorrectResponse("hi");
+				q.setImgUrl("http://images.huffingtonpost.com/2014-03-04-40_BigMac.jpg");
+				q.setQuestion("What The Eff?");
+				q.setQid("69");
+				q.setCorrectResponse("big mac");
+				q.setResponse1("whopper1");
+				q.setResponse2("whopper2");
+				q.setResponse3("whopper3");
+				DatabaseHelper.getDefaultInstance().testAddQuestion(q);
 				Intent i = new Intent(MainActivity.this, GameActivity.class);	
 				startActivity(i);
 			}
@@ -42,7 +52,7 @@ public class MainActivity extends Activity {
 		achievementsButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(animAlpha);
+				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
 				//Intent i = new Intent(MainActivity.this, AchievementActivity.class);	
 			}
 		});
@@ -50,7 +60,7 @@ public class MainActivity extends Activity {
 		settingsButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(animAlpha);
+				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
 				//Intent i = new Intent(MainActivity.this, SettingsActivity.class);	
 			}
 		});
@@ -58,7 +68,7 @@ public class MainActivity extends Activity {
 		logoutButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(animAlpha);
+				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
 				//Intent i = new Intent(MainActivity.this, GameActivity.class);	
 			}
 		});

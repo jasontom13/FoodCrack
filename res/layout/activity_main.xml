@@ -13,21 +13,21 @@
             android:id="@+id/achievementsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/button_selector_on"
             android:text="Achievements" />
 
         <Button
             android:id="@+id/settingsButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/button_selector_on"
             android:text="Settings" />
 
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/button_selector_on"
             android:text="Logout" />
     </LinearLayout>
 
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/button_selector_on"
                 android:text="New Game"
                 android:textColor="#FFFFFF" />
 
