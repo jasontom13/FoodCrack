@@ -6,18 +6,23 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.asynctasks.ImageLoadTask;
 import edu.arizona.wood.tom.model.Question;
 
 public class GameActivity extends Activity{
+	final int TIMERLENGTH = 20000;
 	
+	ProgressBar progress;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -29,6 +34,18 @@ public class GameActivity extends Activity{
 		Button sel2 = (Button) findViewById(R.id.selection2);
 		Button sel3 = (Button) findViewById(R.id.selection3);
 		Button sel4 = (Button) findViewById(R.id.selection4);
+		progress = (ProgressBar) findViewById(R.id.gameTimer);
+		 new CountDownTimer(TIMERLENGTH, 1000) {
+
+		     public void onTick(long millisUntilFinished) {
+		    	 progress.setProgress((int)(((float)TIMERLENGTH-millisUntilFinished)/(float)TIMERLENGTH)*100);
+		    	 Log.i("TIMER",((int)(((float)TIMERLENGTH-millisUntilFinished)/(float)TIMERLENGTH)*100)+"");
+		     }
+
+		     public void onFinish() {
+		         
+		     }
+		  }.start();
 		
 		// Shuffle the buttons so we can assign answers.
 		List<Button> buttons = new ArrayList<Button>();
