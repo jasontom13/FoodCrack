@@ -1,4 +1,4 @@
-package edu.arizona.wood.tom.model;
+package edu.arizona.wood.tom.Model;
 
 public enum UserResponse {
 	SUCCESS,

@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import edu.arizona.foodcrack.R;
-import edu.arizona.wood.tom.model.Question;
+import edu.arizona.wood.tom.Model.Question;
 
 public class MainActivity extends Activity {
 
@@ -34,16 +33,6 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
-				Question q = new Question();
-				q.setCorrectResponse("hi");
-				q.setImgUrl("http://images.huffingtonpost.com/2014-03-04-40_BigMac.jpg");
-				q.setQuestion("What The Eff?");
-				q.setQid("69");
-				q.setCorrectResponse("big mac");
-				q.setResponse1("whopper1");
-				q.setResponse2("whopper2");
-				q.setResponse3("whopper3");
-				DatabaseHelper.getDefaultInstance().testAddQuestion(q);
 				Intent i = new Intent(MainActivity.this, GameActivity.class);	
 				startActivity(i);
 			}

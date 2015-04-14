@@ -1,4 +1,4 @@
-package edu.arizona.wood.tom.model;
+package edu.arizona.wood.tom.Model;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 
