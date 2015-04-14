@@ -123,33 +123,21 @@ public class DatabaseHelper {
 		if (defaultInstance == null) {
 			defaultInstance = new DatabaseHelper();
 		}
-		
-//		Question q = new Question();
-//		q.setCorrectResponse("Sup");
-//		q.setCreatedBy("Jason");
-//		q.setDateCreated("Today dummy");
-//		q.setImgUrl("www.nope.com");
-//		q.setLocationCreated("Earth");
-//		q.setQuestion("5 stars");
-//		q.setResponse1("no");
-//		q.setResponse2("no");
-//		q.setResponse3("no");
-//		
-//		try {
-//			Log.d(TAG, "Creating question");
-//			defaultInstance.mapper.save(q);
-//			Log.d(TAG, "Created");
-//		} catch (Exception e)
-//		{
-//			Log.e(TAG, "error", e);
-//		}
 
 		return defaultInstance;
 	}
 
+	/**
+	 * Adds a user to the Database
+	 * @param username
+	 * 	Username of the user
+	 * @param hash
+	 * 	Hash of their password using SHA-256
+	 * @return
+	 *	Returns a UserResponse saying if the user was added or not or already exists
+	 */
 	public UserResponse addUser(String username, String hash) {
 		// Check to see if already exists in database
-		Log.d(TAG, "Query active...");
 		try
 		{
 			User user = mapper.load(User.class, username);
@@ -175,8 +163,16 @@ public class DatabaseHelper {
 		}
 	}
 
+	/**
+	 * Gets a user from the Database
+	 * @param username 
+	 *	Username of the user
+	 * @param hash
+	 *	Hash of their password using SHA-256
+	 * @return
+	 *	Returns a User object received from the Database
+	 */
 	public User getUser(String username, String hash) {
-		Log.d(TAG, "Query active...");
 		try
 		{
 			User user = mapper.load(User.class, username, hash);
@@ -189,60 +185,60 @@ public class DatabaseHelper {
 		}
 	}
 
+	/**
+	 * Not yet implemented
+	 * @param username
+	 * @param stats
+	 * @return
+	 */
 	public boolean UpdateUserStats(String username, Statistics stats) {
 		return true;
 	}
 
-	public boolean addQuestion() {
-		return true;
-	}
-	
-	public UserResponse testAddQuestion(Question q) {
-		Log.d(TAG, "Query active...");
-		try
-		{
-			Question quest = mapper.load(Question.class, q.getQid());
-			if (quest != null)
-			{
-				return UserResponse.EXISTS;
-			}
-		} catch (Exception e) {}
-
+	/**
+	 * Adds a question to the Database
+	 * @param question
+	 *	Question object to add
+	 * @return
+	 *	true if successfully added to the Database
+	 */
+	public boolean addQuestion(Question question) {
 		// Add user to DB
 		try
 		{
-			mapper.save(q);
-			return UserResponse.SUCCESS;
+			mapper.save(question);
+			return true;
 		} catch (Exception e)
 		{
-			return UserResponse.FAILURE;
+			return false;
 		}
 	}
 
-	public Question getQuestion(int questionId) {
-		Question question = null;
-
-		return question;
-	}
-	
-	public Question testGetQuestion(String qid){
-		Log.d(TAG, "Query active...");
+	/**
+	 * Gets a question from the Database
+	 * @param questionId
+	 *	id of the question to retrieve
+	 * @return
+	 *	Returns a Question object retrieved from the Database
+	 *	Returns null if no question matches the id
+	 */
+	public Question getQuestion(String questionId) {
 		try
 		{
-			Question q = mapper.load(Question.class, qid);
+			Question q = mapper.load(Question.class, questionId);
 			return q;
 		} catch (Exception e)
 		{
-			Log.d(TAG, "No Question found");
 			return null;
 		}
 	}
-
-	public int getNumQuestions() {
-		return 0;
-	}
-
-	public boolean removeQuestions(int questionId) {
-		return true;
+	
+	public ArrayList<String> getAllQuestionIds()
+	{
+		ArrayList<String> questionIds = new ArrayList<String>();
+		
+//		mapper.load
+		
+		return questionIds;
 	}
 }

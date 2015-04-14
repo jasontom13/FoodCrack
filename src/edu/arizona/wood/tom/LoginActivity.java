@@ -1,7 +1,5 @@
 package edu.arizona.wood.tom;
 
-import java.security.MessageDigest;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.User;
-import edu.arizona.wood.tom.model.UserResponse;
 
 public class LoginActivity extends Activity {
 	EditText username;

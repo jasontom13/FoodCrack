@@ -58,7 +58,7 @@ public class GameActivity extends Activity{
 		/* Need to verify which questions the user has not already answered, but for now, hardcoded question #69*/
 		String qid;
 		qid="69";
-		Question q = DatabaseHelper.getDefaultInstance().testGetQuestion(qid);
+		Question q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
 		
 		// Async task to download question image to imageview
 		new ImageLoadTask(q.getImgUrl(), foodImage).execute();
