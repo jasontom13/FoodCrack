@@ -203,15 +203,6 @@ public class DatabaseHelper {
 	 *	true if successfully added to the Database
 	 */
 	public boolean addQuestion(Question question) {
-		try
-		{
-			Question quest = mapper.load(Question.class, question.getQid());
-			if (quest != null)
-			{
-				return false;
-			}
-		} catch (Exception e) {}
-
 		// Add user to DB
 		try
 		{
@@ -240,5 +231,14 @@ public class DatabaseHelper {
 		{
 			return null;
 		}
+	}
+	
+	public ArrayList<String> getAllQuestionIds()
+	{
+		ArrayList<String> questionIds = new ArrayList<String>();
+		
+		mapper.load
+		
+		return questionIds;
 	}
 }
