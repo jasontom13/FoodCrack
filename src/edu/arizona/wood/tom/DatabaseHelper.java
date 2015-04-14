@@ -196,11 +196,46 @@ public class DatabaseHelper {
 	public boolean addQuestion() {
 		return true;
 	}
+	
+	public UserResponse testAddQuestion(Question q) {
+		Log.d(TAG, "Query active...");
+		try
+		{
+			Question quest = mapper.load(Question.class, q.getQid());
+			if (quest != null)
+			{
+				return UserResponse.EXISTS;
+			}
+		} catch (Exception e) {}
+
+		// Add user to DB
+		try
+		{
+			mapper.save(q);
+			return UserResponse.SUCCESS;
+		} catch (Exception e)
+		{
+			return UserResponse.FAILURE;
+		}
+	}
 
 	public Question getQuestion(int questionId) {
 		Question question = null;
 
 		return question;
+	}
+	
+	public Question testGetQuestion(String qid){
+		Log.d(TAG, "Query active...");
+		try
+		{
+			Question q = mapper.load(Question.class, qid);
+			return q;
+		} catch (Exception e)
+		{
+			Log.d(TAG, "No Question found");
+			return null;
+		}
 	}
 
 	public int getNumQuestions() {

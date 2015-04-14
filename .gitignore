@@ -1,5 +1,2 @@
 *.class
-
 bin/*
-bin/classes/edu/arizona/wood/tom/LoginActivity.class
-*.class

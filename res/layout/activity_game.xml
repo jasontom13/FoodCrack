@@ -14,11 +14,14 @@
         android:src="@drawable/applelogo" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_weight=".2"
-        android:text="This is a question" />
+        android:text="This is a question"
+        android:typeface="serif" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,32 +34,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
             android:text="Yes"
-            android:background="@drawable/button_selector" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/selection2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
             android:text="This is an answer"
-            android:background="@drawable/button_selector" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/selection3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
             android:text="Much wow"
-            android:background="@drawable/button_selector" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/selection4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
             android:text="Very impress"
-            android:background="@drawable/button_selector" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
