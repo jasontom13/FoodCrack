@@ -20,10 +20,10 @@ import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProjectionType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 
-import edu.arizona.wood.tom.Model.Question;
-import edu.arizona.wood.tom.Model.Statistics;
-import edu.arizona.wood.tom.Model.User;
-import edu.arizona.wood.tom.Model.UserResponse;
+import edu.arizona.wood.tom.model.Question;
+import edu.arizona.wood.tom.model.Statistics;
+import edu.arizona.wood.tom.model.User;
+import edu.arizona.wood.tom.model.UserResponse;
 
 public class DatabaseHelper {
 	private static DatabaseHelper defaultInstance;
