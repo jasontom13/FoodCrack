@@ -9,8 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import edu.arizona.foodcrack.R;
-import edu.arizona.wood.tom.Model.Session;
-import edu.arizona.wood.tom.Model.User;
+import edu.arizona.wood.tom.model.Session;
+import edu.arizona.wood.tom.model.User;
 
 public class LoginActivity extends Activity {
 	EditText username;

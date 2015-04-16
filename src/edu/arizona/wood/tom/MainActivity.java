@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import edu.arizona.foodcrack.R;
-import edu.arizona.wood.tom.Model.Question;
 
 public class MainActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package edu.arizona.wood.tom.Model;
+package edu.arizona.wood.tom.model;
 
 public class Statistics {
 
