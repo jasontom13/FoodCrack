@@ -237,7 +237,6 @@ public class DatabaseHelper {
 	{
 		ArrayList<String> questionIds = new ArrayList<String>();
 		
-		mapper.load
 		
 		return questionIds;
 	}
