@@ -3,6 +3,7 @@ package edu.arizona.wood.tom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.asynctasks.ImageLoadTask;
 import edu.arizona.wood.tom.model.Question;
+import edu.arizona.wood.tom.model.Session;
 
 public class GameActivity extends Activity{
 	final int TIMERLENGTH = 20000;
@@ -57,7 +59,7 @@ public class GameActivity extends Activity{
 		
 		/* Need to verify which questions the user has not already answered, but for now, hardcoded question #69*/
 		String qid;
-		qid="69";
+		qid = Session.getDefaultInstance().getAvailableQuestions().get(new Random().nextInt(Session.getDefaultInstance().getAvailableQuestions().size()));
 		Question q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
 		
 		// Async task to download question image to imageview
