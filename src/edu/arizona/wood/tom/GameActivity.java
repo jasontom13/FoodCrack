@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,6 +22,9 @@ import edu.arizona.wood.tom.model.Question;
 
 public class GameActivity extends Activity{
 	final int TIMERLENGTH = 20000;
+	boolean removedFirstQuestion=false;
+	boolean removedSecondQuestion=false;
+	List<Button> buttons = new ArrayList<Button>();
 	
 	ProgressBar progress;
 	
@@ -35,33 +39,20 @@ public class GameActivity extends Activity{
 		Button sel3 = (Button) findViewById(R.id.selection3);
 		Button sel4 = (Button) findViewById(R.id.selection4);
 		progress = (ProgressBar) findViewById(R.id.gameTimer);
-		 new CountDownTimer(TIMERLENGTH, 1000) {
-
-		     public void onTick(long millisUntilFinished) {
-		    	 progress.setProgress((int)(((float)TIMERLENGTH-millisUntilFinished)/(float)TIMERLENGTH)*100);
-		    	 Log.i("TIMER",((int)(((float)TIMERLENGTH-millisUntilFinished)/(float)TIMERLENGTH)*100)+"");
-		     }
-
-		     public void onFinish() {
-		         
-		     }
-		  }.start();
 		
 		// Shuffle the buttons so we can assign answers.
-		List<Button> buttons = new ArrayList<Button>();
+		
 		buttons.add(sel1);
 		buttons.add(sel2);
 		buttons.add(sel3);
 		buttons.add(sel4);
 		Collections.shuffle(buttons);
 		
+		
 		/* Need to verify which questions the user has not already answered, but for now, hardcoded question #69*/
 		String qid;
 		qid="69";
 		Question q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
-		
-		// Async task to download question image to imageview
-		new ImageLoadTask(q.getImgUrl(), foodImage).execute();
 		
 		// Set text fields
 		buttons.get(0).setText(q.getCorrectResponse());
@@ -69,6 +60,42 @@ public class GameActivity extends Activity{
 		buttons.get(2).setText(q.getResponse2());
 		buttons.get(3).setText(q.getResponse3());
 		questionText.setText(q.getQuestion());
+
+		new CountDownTimer(TIMERLENGTH, 1) {
+
+		     public void onTick(long millisUntilFinished) {
+		    	 progress.setProgress((int) (TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH);
+		    	 Log.i("TIMER",(TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH+"");
+		    	 if (millisUntilFinished<TIMERLENGTH/2){
+		    		 if (!removedFirstQuestion){
+		    			 removedFirstQuestion=true;
+		    			 buttons.get(1).startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout));
+		    			 //buttons.get(1).setVisibility(View.GONE);
+		    			 buttons.get(2).setClickable(false);
+		    		 }
+		    		 if (millisUntilFinished<TIMERLENGTH/4){
+		    			 if (!removedSecondQuestion){
+		    				 removedSecondQuestion=true;
+		    				 buttons.get(2).startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout));
+		    				 buttons.get(2).setClickable(false);
+		    				 //buttons.get(2).setVisibility(View.GONE);
+		    			 }
+		    		 }
+		    	 }
+		    	 
+		     }
+
+		     public void onFinish() {
+		    	 
+		         
+		     }
+		  }.start();
+		
+
+
+		
+		// Async task to download question image to imageview
+		new ImageLoadTask(q.getImgUrl(), foodImage).execute();
 		
 		sel1.setOnTouchListener(new OnTouchListener() {
 
