@@ -256,6 +256,7 @@ public class GameActivity extends Activity{
 //			
 //		}
 //	}
+	
 
 	private boolean isValid(View v, MotionEvent event){
 		if (event.getX() >= 0 && event.getX() <= v.getWidth() &&
@@ -263,6 +264,11 @@ public class GameActivity extends Activity{
         		return true;
         	}
 		return false;
+	}
+
+	@Override
+	public void onBackPressed() {
+		
 	}
 	
 }
