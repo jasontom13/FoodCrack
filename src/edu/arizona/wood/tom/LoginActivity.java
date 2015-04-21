@@ -1,5 +1,7 @@
 package edu.arizona.wood.tom;
 
+import java.security.MessageDigest;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.User;
+import edu.arizona.wood.tom.model.UserResponse;
 
 public class LoginActivity extends Activity {
 	EditText username;
@@ -37,31 +41,38 @@ public class LoginActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				String name = username.getText().toString();
-//				try {
-//					MessageDigest md = MessageDigest.getInstance("SHA");
-//					md.update(pass.getText().toString().getBytes("UTF-8"));
-//					byte[] digest = md.digest();
-//					String str = new String(digest);
-//					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
-//					User user = dh.getUser(name, str);
-//					if (user != null)
-//					{
-//						// Yay, go to main activity, set global user
-//						Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//						startActivity(i);
-//					}
-//					else
-//					{
-//						// Could not find user in db
-//						Toast.makeText(getApplicationContext(), "Could not authenticate credentials", Toast.LENGTH_SHORT).show();
-//					}
-//				} catch (Exception e) {
-//
-//				}
-				User user= new User();
-				user.setUsername("Jason");
-				user.setHashword("Tom");
-				Session.getDefaultInstance().setLoggedInUser(user);
+				try {
+					MessageDigest md = MessageDigest.getInstance("SHA");
+					md.update(pass.getText().toString().getBytes("UTF-8"));
+					byte[] digest = md.digest();
+					String str = new String(digest);
+					
+					// TODO: Debugging purposes for blank username
+					if (name.equals(""))
+					{
+						name = "Jason";
+						str = "Tom";
+					}
+					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
+					User user = dh.getUser(name, str);
+					if (user != null)
+					{
+						Session.getDefaultInstance().setLoggedInUser(user);
+						
+						// Yay, go to main activity, set global user
+						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(i);
+					}
+					else
+					{
+						// Could not find user in db
+						Toast.makeText(getApplicationContext(), "Could not authenticate credentials", Toast.LENGTH_SHORT).show();
+					}
+				} catch (Exception e) {
+
+				}
+				
+				Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
 				
 				Intent i = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(i);
@@ -76,44 +87,46 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 				// Add to database when methods are implemented
 				String name = username.getText().toString();
-//				try {
-//					MessageDigest md = MessageDigest.getInstance("SHA");
-//					md.update(pass.getText().toString().getBytes("UTF-8"));
-//					byte[] digest = md.digest();
-//					String str = new String(digest);
-//					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
-//					UserResponse response = dh.addUser(name, str);
-//					if (response == UserResponse.SUCCESS)
-//					{
-//						// Yay temp toast for success
-//						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
-//						
-//						Intent i = new Intent(LoginActivity.this, MainActivity.class);
-//						startActivity(i);
-//						LoginActivity.this.finish();
-//					}
-//					else if (response == UserResponse.FAILURE)
-//					{
-//						// Could not create
-//						Toast.makeText(getApplicationContext(), "Could not create user: " + name, Toast.LENGTH_SHORT).show();
-//					}
-//				} catch (Exception e) {
-//
-//				}
+				try {
+					MessageDigest md = MessageDigest.getInstance("SHA");
+					md.update(pass.getText().toString().getBytes("UTF-8"));
+					byte[] digest = md.digest();
+					String str = new String(digest);
+					
+					// TODO: Debugging purposes for blank username
+					if (name.equals(""))
+					{
+						name = "Jason";
+						str = "Tom";
+					}
+					DatabaseHelper dh = DatabaseHelper.getDefaultInstance();
+					UserResponse response = dh.addUser(name, str);
+					if (response == UserResponse.SUCCESS)
+					{
+						// Yay temp toast for success
+						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
+
+						Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
+						
+						Intent i = new Intent(LoginActivity.this, MainActivity.class);
+						startActivity(i);
+						LoginActivity.this.finish();
+					}
+					else if (response == UserResponse.FAILURE)
+					{
+						// Could not create
+						Toast.makeText(getApplicationContext(), "Could not create user: " + name, Toast.LENGTH_SHORT).show();
+					}
+				} catch (Exception e) {
+
+				}
+
+				Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
 				
-				User user= new User();
-				user.setUsername("Jason");
-				user.setHashword("Tom");
-				Session.getDefaultInstance().setLoggedInUser(user);
 				Intent i = new Intent(LoginActivity.this, MainActivity.class);
 				startActivity(i);
 				LoginActivity.this.finish();
-				
-
-
 			}
-
 		});
 	}
-
 }
