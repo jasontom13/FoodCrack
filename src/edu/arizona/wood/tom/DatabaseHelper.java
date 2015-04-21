@@ -1,6 +1,8 @@
 package edu.arizona.wood.tom;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import android.util.Log;
 
@@ -11,6 +13,7 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
@@ -19,6 +22,8 @@ import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProjectionType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 
 import edu.arizona.wood.tom.model.Question;
 import edu.arizona.wood.tom.model.Statistics;
@@ -30,6 +35,9 @@ public class DatabaseHelper {
 	private static final String ACCESS_KEY = "AKIAI4CSISLJMKU3DWVQ";
 	private static final String SECRET_KEY = "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";
 	private static final String TAG = "DDB";
+	
+	private static final String QUESTION_TABLE = "Questions";
+	private static final String USER_TABLE = "Users";
 
     static String replyTableName = "Reply";
     
@@ -233,10 +241,36 @@ public class DatabaseHelper {
 		}
 	}
 	
+	/**
+	 * Gets all question id's from the database
+	 * @return ArrayList of Strings of all question id's
+	 */
 	public ArrayList<String> getAllQuestionIds()
 	{
 		ArrayList<String> questionIds = new ArrayList<String>();
 		
+		ScanResult result = null;
+		do
+		{
+			ScanRequest req = new ScanRequest();
+			req.setTableName(QUESTION_TABLE);
+			
+			if (result != null)
+			{
+				req.setExclusiveStartKey(result.getLastEvaluatedKey());
+			}
+			
+			result = db.scan(req);
+			
+			List<Map<String, AttributeValue>> rows = result.getItems();
+			
+			for (Map<String, AttributeValue> map : rows)
+			{
+				AttributeValue v = map.get("qid");
+				String id = v.getS();
+				questionIds.add(id);
+			}
+		} while(result.getLastEvaluatedKey() != null);
 		
 		return questionIds;
 	}
