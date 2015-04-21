@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,8 +28,8 @@ public class GameActivity extends Activity{
 	boolean removedFirstQuestion=false;
 	boolean removedSecondQuestion=false;
 	List<Button> buttons = new ArrayList<Button>();
-	
 	ProgressBar progress;
+	Question q;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -54,7 +55,7 @@ public class GameActivity extends Activity{
 		/* Need to verify which questions the user has not already answered, but for now, hardcoded question #69*/
 		String qid;
 		qid = Session.getDefaultInstance().getAvailableQuestions().get(new Random().nextInt(Session.getDefaultInstance().getAvailableQuestions().size()));
-		Question q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
+		q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
 		
 		// Set text fields
 		buttons.get(0).setText(q.getCorrectResponse());
@@ -64,23 +65,67 @@ public class GameActivity extends Activity{
 		questionText.setText(q.getQuestion());
 
 		new CountDownTimer(TIMERLENGTH, 1) {
-
 		     public void onTick(long millisUntilFinished) {
+
 		    	 progress.setProgress((int) (TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH);
 		    	 Log.i("TIMER",(TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH+"");
 		    	 if (millisUntilFinished<TIMERLENGTH/2){
 		    		 if (!removedFirstQuestion){
 		    			 removedFirstQuestion=true;
-		    			 buttons.get(1).startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout));
-		    			 //buttons.get(1).setVisibility(View.GONE);
-		    			 buttons.get(2).setClickable(false);
+		    			 Animation fadeout1 = AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout);
+				    	 fadeout1.setAnimationListener(new Animation.AnimationListener(){
+
+								@Override
+								public void onAnimationStart(Animation animation) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onAnimationEnd(Animation animation) {
+									// TODO Auto-generated method stub
+									buttons.get(1).setVisibility(View.INVISIBLE);
+									
+								}
+
+								@Override
+								public void onAnimationRepeat(Animation animation) {
+									// TODO Auto-generated method stub
+									
+								}
+					    		 
+					    	 });
+		    			 buttons.get(1).startAnimation(fadeout1);
+		    			 buttons.get(1).setClickable(false);
 		    		 }
 		    		 if (millisUntilFinished<TIMERLENGTH/4){
 		    			 if (!removedSecondQuestion){
 		    				 removedSecondQuestion=true;
-		    				 buttons.get(2).startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout));
+		    				 Animation fadeout2 = AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_fadeout);
+					    	 fadeout2.setAnimationListener(new Animation.AnimationListener(){
+
+									@Override
+									public void onAnimationStart(Animation animation) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onAnimationEnd(Animation animation) {
+										// TODO Auto-generated method stub
+										buttons.get(2).setVisibility(View.INVISIBLE);
+										
+									}
+
+									@Override
+									public void onAnimationRepeat(Animation animation) {
+										// TODO Auto-generated method stub
+										
+									}
+						    		 
+						    	 });
+			    			 buttons.get(2).startAnimation(fadeout2);
 		    				 buttons.get(2).setClickable(false);
-		    				 //buttons.get(2).setVisibility(View.GONE);
 		    			 }
 		    		 }
 		    	 }
@@ -110,7 +155,7 @@ public class GameActivity extends Activity{
 		        case MotionEvent.ACTION_UP:
 		        	v.setBackgroundResource(R.drawable.button_selector_on);
 		        	if (isValid(v,event)){
-		        		//FILL
+		        		//GameActivity.this.validate(v);
 		        	}
 		            break;
 		        }
@@ -205,6 +250,13 @@ public class GameActivity extends Activity{
 		//DatabaseHelper.getDefaultInstance().getQuestion(questionId);
 	}
 	
+//	protected boolean validate(View v) {
+//		Button answer = (Button) v;
+//		if (answer.getText().toString().equals(q.getCorrectResponse())){
+//			
+//		}
+//	}
+
 	private boolean isValid(View v, MotionEvent event){
 		if (event.getX() >= 0 && event.getX() <= v.getWidth() &&
         	event.getY() >= 0 && event.getY() <= v.getHeight()){
