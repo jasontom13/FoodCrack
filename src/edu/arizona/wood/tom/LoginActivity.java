@@ -59,9 +59,13 @@ public class LoginActivity extends Activity {
 					{
 						Session.getDefaultInstance().setLoggedInUser(user);
 						
+						Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
+						
 						// Yay, go to main activity, set global user
 						Intent i = new Intent(LoginActivity.this, MainActivity.class);
 						startActivity(i);
+						
+						LoginActivity.this.finish();
 					}
 					else
 					{
@@ -71,14 +75,7 @@ public class LoginActivity extends Activity {
 				} catch (Exception e) {
 
 				}
-				
-				Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
-				
-				Intent i = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(i);
-				LoginActivity.this.finish();
 			}
-
 		});
 
 		register.setOnClickListener(new OnClickListener() {
@@ -110,6 +107,7 @@ public class LoginActivity extends Activity {
 						
 						Intent i = new Intent(LoginActivity.this, MainActivity.class);
 						startActivity(i);
+						
 						LoginActivity.this.finish();
 					}
 					else if (response == UserResponse.FAILURE)
@@ -120,12 +118,6 @@ public class LoginActivity extends Activity {
 				} catch (Exception e) {
 
 				}
-
-				Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
-				
-				Intent i = new Intent(LoginActivity.this, MainActivity.class);
-				startActivity(i);
-				LoginActivity.this.finish();
 			}
 		});
 	}

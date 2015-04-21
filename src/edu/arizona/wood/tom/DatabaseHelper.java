@@ -160,10 +160,21 @@ public class DatabaseHelper {
 		user.setUsername(username);
 		user.setHashword(hash);
 		
+		Statistics stats = new Statistics();
+		stats.setUsername(username);
+		stats.setAverageTimeToAnswer("0");
+		stats.setCorrectlyAnswered(0);
+		stats.setCurrentStreak(0);
+		stats.setCurrentStreakWinning(true);
+		stats.setLosingStreak(0);
+		stats.setQuestionsAnswered(0);
+		stats.setWinningStreak(0);
+		
 		// Add user to DB
 		try
 		{
 			mapper.save(user);
+			mapper.save(stats);
 			return UserResponse.SUCCESS;
 		} catch (Exception e)
 		{
