@@ -9,6 +9,7 @@ import android.util.Log;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBQueryExpression;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -25,6 +26,8 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 
+import edu.arizona.wood.tom.model.Achievements;
+import edu.arizona.wood.tom.model.Answered;
 import edu.arizona.wood.tom.model.Question;
 import edu.arizona.wood.tom.model.Statistics;
 import edu.arizona.wood.tom.model.User;
@@ -35,21 +38,20 @@ public class DatabaseHelper {
 	private static final String ACCESS_KEY = "AKIAI4CSISLJMKU3DWVQ";
 	private static final String SECRET_KEY = "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";
 	private static final String TAG = "DDB";
-	
+
 	private static final String QUESTION_TABLE = "Questions";
 	private static final String USER_TABLE = "Users";
 
-    static String replyTableName = "Reply";
-    
+	static String replyTableName = "Reply";
 
 	private AmazonDynamoDBClient db;
-	
+
 	private DynamoDBMapper mapper;
 
 	private DatabaseHelper() {
 		String result = init();
 		if (!result.equals("")) {
-			//throw new Exception("Bad connection to AWS: " + result);
+			// throw new Exception("Bad connection to AWS: " + result);
 		}
 	}
 
@@ -62,74 +64,87 @@ public class DatabaseHelper {
 
 		return ""; // Empty string if successful connection
 	}
-	
-	private void createTable(
-	        String tableName, long readCapacityUnits, long writeCapacityUnits, 
-	        String hashKeyName, String hashKeyType, 
-	        String rangeKeyName, String rangeKeyType) {
 
-	        try {
+	private void createTable(String tableName, long readCapacityUnits,
+			long writeCapacityUnits, String hashKeyName, String hashKeyType,
+			String rangeKeyName, String rangeKeyType) {
 
-	            ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
-	            keySchema.add(new KeySchemaElement()
-	                .withAttributeName(hashKeyName)
-	                .withKeyType(KeyType.HASH));
-	            
-	            ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
-	            attributeDefinitions.add(new AttributeDefinition()
-	                .withAttributeName(hashKeyName)
-	                .withAttributeType(hashKeyType));
+		try {
 
-	            if (rangeKeyName != null) {
-	                keySchema.add(new KeySchemaElement()
-	                    .withAttributeName(rangeKeyName)
-	                    .withKeyType(KeyType.RANGE));
-	                attributeDefinitions.add(new AttributeDefinition()
-	                    .withAttributeName(rangeKeyName)
-	                    .withAttributeType(rangeKeyType));
-	            }
+			ArrayList<KeySchemaElement> keySchema = new ArrayList<KeySchemaElement>();
+			keySchema.add(new KeySchemaElement().withAttributeName(hashKeyName)
+					.withKeyType(KeyType.HASH));
 
-	            CreateTableRequest request = new CreateTableRequest()
-	                    .withTableName(tableName)
-	                    .withKeySchema(keySchema)
-	                    .withProvisionedThroughput( new ProvisionedThroughput()
-	                        .withReadCapacityUnits(readCapacityUnits)
-	                        .withWriteCapacityUnits(writeCapacityUnits));
+			ArrayList<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
+			attributeDefinitions.add(new AttributeDefinition()
+					.withAttributeName(hashKeyName).withAttributeType(
+							hashKeyType));
 
-	            // If this is the Reply table, define a local secondary index
-	            if (replyTableName.equals(tableName)) {
-	                
-	                attributeDefinitions.add(new AttributeDefinition()
-	                    .withAttributeName("PostedBy")
-	                    .withAttributeType("S"));
+			if (rangeKeyName != null) {
+				keySchema.add(new KeySchemaElement().withAttributeName(
+						rangeKeyName).withKeyType(KeyType.RANGE));
+				attributeDefinitions.add(new AttributeDefinition()
+						.withAttributeName(rangeKeyName).withAttributeType(
+								rangeKeyType));
+			}
 
-	                ArrayList<LocalSecondaryIndex> localSecondaryIndexes = new ArrayList<LocalSecondaryIndex>();
-	                localSecondaryIndexes.add(new LocalSecondaryIndex()
-	                    .withIndexName("PostedBy-Index")
-	                    .withKeySchema(
-	                        new KeySchemaElement().withAttributeName(hashKeyName).withKeyType(KeyType.HASH), 
-	                        new KeySchemaElement() .withAttributeName("PostedBy") .withKeyType(KeyType.RANGE))
-	                    .withProjection(new Projection() .withProjectionType(ProjectionType.KEYS_ONLY)));
+			CreateTableRequest request = new CreateTableRequest()
+					.withTableName(tableName)
+					.withKeySchema(keySchema)
+					.withProvisionedThroughput(
+							new ProvisionedThroughput().withReadCapacityUnits(
+									readCapacityUnits).withWriteCapacityUnits(
+									writeCapacityUnits));
 
-	                request.setLocalSecondaryIndexes(localSecondaryIndexes);
-	            }
+			// If this is the Reply table, define a local secondary index
+			if (replyTableName.equals(tableName)) {
 
-	            request.setAttributeDefinitions(attributeDefinitions);
+				attributeDefinitions.add(new AttributeDefinition()
+						.withAttributeName("PostedBy").withAttributeType("S"));
 
-	            System.out.println("Issuing CreateTable request for " + tableName);
-	            CreateTableResult table = db.createTable(request);
-	            System.out.println("Waiting for " + tableName
-	                + " to be created...this may take a while...");
+				ArrayList<LocalSecondaryIndex> localSecondaryIndexes = new ArrayList<LocalSecondaryIndex>();
+				localSecondaryIndexes
+						.add(new LocalSecondaryIndex()
+								.withIndexName("PostedBy-Index")
+								.withKeySchema(
+										new KeySchemaElement()
+												.withAttributeName(hashKeyName)
+												.withKeyType(KeyType.HASH),
+										new KeySchemaElement()
+												.withAttributeName("PostedBy")
+												.withKeyType(KeyType.RANGE))
+								.withProjection(
+										new Projection()
+												.withProjectionType(ProjectionType.KEYS_ONLY)));
 
-	        } catch (Exception e) {
-	            System.err.println("CreateTable request failed for " + tableName);
-	            System.err.println(e.getMessage());
-	        }
-	    }
+				request.setLocalSecondaryIndexes(localSecondaryIndexes);
+			}
+
+			request.setAttributeDefinitions(attributeDefinitions);
+
+			System.out.println("Issuing CreateTable request for " + tableName);
+			CreateTableResult table = db.createTable(request);
+			System.out.println("Waiting for " + tableName
+					+ " to be created...this may take a while...");
+
+		} catch (Exception e) {
+			System.err.println("CreateTable request failed for " + tableName);
+			System.err.println(e.getMessage());
+		}
+	}
 
 	public static DatabaseHelper getDefaultInstance() {
 		if (defaultInstance == null) {
 			defaultInstance = new DatabaseHelper();
+			
+			// Testing
+			Log.d("DDB", "Before");
+			List<String> qids = defaultInstance.getAnswered("Testing");
+			Log.d("DDB", qids.size() + " number");
+			for (String q : qids)
+			{
+				Log.d("DDB", q);
+			}
 		}
 
 		return defaultInstance;
@@ -137,68 +152,63 @@ public class DatabaseHelper {
 
 	/**
 	 * Adds a user to the Database
+	 * 
 	 * @param username
-	 * 	Username of the user
+	 *            Username of the user
 	 * @param hash
-	 * 	Hash of their password using SHA-256
-	 * @return
-	 *	Returns a UserResponse saying if the user was added or not or already exists
+	 *            Hash of their password using SHA-256
+	 * @return Returns a UserResponse saying if the user was added or not or
+	 *         already exists
 	 */
 	public UserResponse addUser(String username, String hash) {
 		// Check to see if already exists in database
-		try
-		{
+		try {
 			User user = mapper.load(User.class, username);
-			if (user != null)
-			{
+			if (user != null) {
 				return UserResponse.EXISTS;
 			}
-		} catch (Exception e) {}
-		
+		} catch (Exception e) {
+		}
+
 		// Build user to add
 		User user = new User();
 		user.setUsername(username);
 		user.setHashword(hash);
-		
+
+		// Build users stats
 		Statistics stats = new Statistics();
 		stats.setUsername(username);
-		stats.setAverageTimeToAnswer("0");
-		stats.setCorrectlyAnswered(0);
-		stats.setCurrentStreak(0);
-		stats.setCurrentStreakWinning(true);
-		stats.setLosingStreak(0);
-		stats.setQuestionsAnswered(0);
-		stats.setWinningStreak(0);
-		
+
+		// Build users achievements
+		Achievements ach = new Achievements();
+		ach.setUsername(username);
+
 		// Add user to DB
-		try
-		{
+		try {
 			mapper.save(user);
 			mapper.save(stats);
+			mapper.save(ach);
 			return UserResponse.SUCCESS;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return UserResponse.FAILURE;
 		}
 	}
 
 	/**
 	 * Gets a user from the Database
-	 * @param username 
-	 *	Username of the user
+	 * 
+	 * @param username
+	 *            Username of the user
 	 * @param hash
-	 *	Hash of their password using SHA-256
-	 * @return
-	 *	Returns a User object received from the Database
+	 *            Hash of their password using SHA-256
+	 * @return Returns a User object received from the Database
 	 */
 	public User getUser(String username, String hash) {
-		try
-		{
+		try {
 			User user = mapper.load(User.class, username, hash);
 			Log.d(TAG, user.getUsername() + " " + user.getHashword());
 			return user;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.d(TAG, "No user found");
 			return null;
 		}
@@ -206,6 +216,7 @@ public class DatabaseHelper {
 
 	/**
 	 * Not yet implemented
+	 * 
 	 * @param username
 	 * @param stats
 	 * @return
@@ -216,73 +227,108 @@ public class DatabaseHelper {
 
 	/**
 	 * Adds a question to the Database
+	 * 
 	 * @param question
-	 *	Question object to add
-	 * @return
-	 *	true if successfully added to the Database
+	 *            Question object to add
+	 * @return true if successfully added to the Database
 	 */
 	public boolean addQuestion(Question question) {
 		// Add user to DB
-		try
-		{
+		try {
 			mapper.save(question);
 			return true;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 	}
 
 	/**
 	 * Gets a question from the Database
+	 * 
 	 * @param questionId
-	 *	id of the question to retrieve
-	 * @return
-	 *	Returns a Question object retrieved from the Database
-	 *	Returns null if no question matches the id
+	 *            id of the question to retrieve
+	 * @return Returns a Question object retrieved from the Database Returns
+	 *         null if no question matches the id
 	 */
 	public Question getQuestion(String questionId) {
-		try
-		{
+		try {
 			Question q = mapper.load(Question.class, questionId);
 			return q;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Gets all question id's from the database
+	 * 
 	 * @return ArrayList of Strings of all question id's
 	 */
-	public ArrayList<String> getAllQuestionIds()
-	{
+	public ArrayList<String> getAllQuestionIds() {
 		ArrayList<String> questionIds = new ArrayList<String>();
-		
+
 		ScanResult result = null;
-		do
-		{
+		do {
 			ScanRequest req = new ScanRequest();
 			req.setTableName(QUESTION_TABLE);
-			
-			if (result != null)
-			{
+
+			if (result != null) {
 				req.setExclusiveStartKey(result.getLastEvaluatedKey());
 			}
-			
+
 			result = db.scan(req);
-			
+
 			List<Map<String, AttributeValue>> rows = result.getItems();
-			
-			for (Map<String, AttributeValue> map : rows)
-			{
+
+			for (Map<String, AttributeValue> map : rows) {
 				AttributeValue v = map.get("qid");
 				String id = v.getS();
 				questionIds.add(id);
 			}
-		} while(result.getLastEvaluatedKey() != null);
-		
+		} while (result.getLastEvaluatedKey() != null);
+
 		return questionIds;
+	}
+
+	public Achievements getUserAchievements(String username) {
+		try {
+			Achievements ach = mapper.load(Achievements.class, username);
+			return ach;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public void updateAchievements(Achievements ach) {
+		mapper.save(ach);
+	}
+
+	public Statistics getUserStatistics(String username) {
+		try {
+			Statistics stats = mapper.load(Statistics.class, username);
+			return stats;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public void updateStatistics(Statistics stats) {
+		mapper.save(stats);
+	}
+	
+	public List<String> getAnswered(String username)
+	{
+	    DynamoDBQueryExpression<String> queryAssigned = new DynamoDBQueryExpression<String>().withHashKeyValues(username);
+
+	    return mapper.query(String.class, queryAssigned);
+	}
+	
+	public void addAnswered(String username, String qid)
+	{
+		Answered ans = new Answered();
+		ans.setUsername(username);
+		ans.setQid(qid);
+		
+		mapper.save(ans);
 	}
 }
