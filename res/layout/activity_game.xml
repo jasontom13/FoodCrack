@@ -13,13 +13,28 @@
         android:layout_weight=".05"
         android:max="1000" />
 
-    <ImageView
-        android:id="@+id/foodImage"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight=".4"
-        android:src="@drawable/applelogo" />
+        android:layout_weight=".4" >
+
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:src="@drawable/applelogo" />
+
+        <TextView
+            android:id="@+id/gameResponseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="invisible" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/questionText"
@@ -34,7 +49,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".4"
+        android:layout_weight=".3"
         android:orientation="vertical" >
 
         <Button

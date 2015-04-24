@@ -68,7 +68,6 @@ public class GameActivity extends Activity{
 		     public void onTick(long millisUntilFinished) {
 
 		    	 progress.setProgress((int) (TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH);
-		    	 Log.i("TIMER",(TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH+"");
 		    	 if (millisUntilFinished<TIMERLENGTH/2){
 		    		 if (!removedFirstQuestion){
 		    			 removedFirstQuestion=true;
@@ -144,7 +143,8 @@ public class GameActivity extends Activity{
 		// Async task to download question image to imageview
 		new ImageLoadTask(q.getImgUrl(), foodImage).execute();
 		
-		sel1.setOnTouchListener(new OnTouchListener() {
+		
+		class TouchListener implements OnTouchListener{
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -155,72 +155,101 @@ public class GameActivity extends Activity{
 		        case MotionEvent.ACTION_UP:
 		        	v.setBackgroundResource(R.drawable.button_selector_on);
 		        	if (isValid(v,event)){
-		        		//GameActivity.this.validate(v);
+		        		GameActivity.this.validate(v);
 		        	}
 		            break;
 		        }
 		        
 		        return false;
-		    }	
-		});
+		    }
+			
+		}
+		
+		sel1.setOnTouchListener(new TouchListener());
+		sel2.setOnTouchListener(new TouchListener());
+		sel3.setOnTouchListener(new TouchListener());
+		sel4.setOnTouchListener(new TouchListener());
 
-		sel2.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-		        switch(event.getAction()) {
-		        case MotionEvent.ACTION_DOWN:
-		        	v.setBackgroundResource(R.drawable.button_selector_off);
-		            break;
-		        case MotionEvent.ACTION_UP:
-		        	v.setBackgroundResource(R.drawable.button_selector_on);
-		        	if (isValid(v,event)){
-		        		//FILL
-		        	}
-		            break;
-		        }
-		        
-		        return false;
-		    }	
-		});
-		sel3.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-		        switch(event.getAction()) {
-		        case MotionEvent.ACTION_DOWN:
-		        	v.setBackgroundResource(R.drawable.button_selector_off);
-		            break;
-		        case MotionEvent.ACTION_UP:
-		        	v.setBackgroundResource(R.drawable.button_selector_on);
-		        	if (isValid(v,event)){
-		        		//FILL
-		        	}
-		            break;
-		        }
-		        
-		        return false;
-		    }	
-		});
-		sel4.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-		        switch(event.getAction()) {
-		        case MotionEvent.ACTION_DOWN:
-		        	v.setBackgroundResource(R.drawable.button_selector_off);
-		            break;
-		        case MotionEvent.ACTION_UP:
-		        	v.setBackgroundResource(R.drawable.button_selector_on);
-		        	if (isValid(v,event)){
-		        		//FILL
-		        	}
-		            break;
-		        }
-		        
-		        return false;
-		    }	
-		});
+		
+	
+		
+//		sel1.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//		        switch(event.getAction()) {
+//		        case MotionEvent.ACTION_DOWN:
+//		        	v.setBackgroundResource(R.drawable.button_selector_off);
+//		            break;
+//		        case MotionEvent.ACTION_UP:
+//		        	v.setBackgroundResource(R.drawable.button_selector_on);
+//		        	if (isValid(v,event)){
+//		        		GameActivity.this.validate(v);
+//		        	}
+//		            break;
+//		        }
+//		        
+//		        return false;
+//		    }	
+//		});
+//
+//		sel2.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//		        switch(event.getAction()) {
+//		        case MotionEvent.ACTION_DOWN:
+//		        	v.setBackgroundResource(R.drawable.button_selector_off);
+//		            break;
+//		        case MotionEvent.ACTION_UP:
+//		        	v.setBackgroundResource(R.drawable.button_selector_on);
+//		        	if (isValid(v,event)){
+//		        		//FILL
+//		        	}
+//		            break;
+//		        }
+//		        
+//		        return false;
+//		    }	
+//		});
+//		sel3.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//		        switch(event.getAction()) {
+//		        case MotionEvent.ACTION_DOWN:
+//		        	v.setBackgroundResource(R.drawable.button_selector_off);
+//		            break;
+//		        case MotionEvent.ACTION_UP:
+//		        	v.setBackgroundResource(R.drawable.button_selector_on);
+//		        	if (isValid(v,event)){
+//		        		//FILL
+//		        	}
+//		            break;
+//		        }
+//		        
+//		        return false;
+//		    }	
+//		});
+//		sel4.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//		        switch(event.getAction()) {
+//		        case MotionEvent.ACTION_DOWN:
+//		        	v.setBackgroundResource(R.drawable.button_selector_off);
+//		            break;
+//		        case MotionEvent.ACTION_UP:
+//		        	v.setBackgroundResource(R.drawable.button_selector_on);
+//		        	if (isValid(v,event)){
+//		        		//FILL
+//		        	}
+//		            break;
+//		        }
+//		        
+//		        return false;
+//		    }	
+//		});
 //		sel1.setOnClickListener(new OnClickListener(){
 //			@Override
 //			public void onClick(View v) {
@@ -250,12 +279,17 @@ public class GameActivity extends Activity{
 		//DatabaseHelper.getDefaultInstance().getQuestion(questionId);
 	}
 	
-//	protected boolean validate(View v) {
-//		Button answer = (Button) v;
-//		if (answer.getText().toString().equals(q.getCorrectResponse())){
-//			
-//		}
-//	}
+	protected void validate(View v) {
+		Button answer = (Button) v;
+		TextView response = (TextView) findViewById(R.id.gameResponseText);
+		if (answer.getText().toString().equals(q.getCorrectResponse())){
+			response.setText(":)");
+		}
+		else{
+			response.setText(":(");
+		}
+		response.setVisibility(View.VISIBLE);
+	}
 	
 
 	private boolean isValid(View v, MotionEvent event){
