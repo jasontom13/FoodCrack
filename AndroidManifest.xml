@@ -14,6 +14,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
+            android:theme="@style/NoActionBar"
             android:name="edu.arizona.wood.tom.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -23,13 +24,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.arizona.wood.tom.LoginActivity">
+            android:name="edu.arizona.wood.tom.LoginActivity"
+            android:theme="@style/NoActionBar">
         </activity>
         <activity
-            android:name="edu.arizona.wood.tom.MainActivity">
+            android:name="edu.arizona.wood.tom.MainActivity"
+            android:theme="@style/NoActionBar">
         </activity>
                 <activity
-            android:name="edu.arizona.wood.tom.GameActivity">
+            android:name="edu.arizona.wood.tom.GameActivity"
+            android:theme="@style/NoActionBar">
         </activity>
     </application>
 

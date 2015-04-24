@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//getActionBar().hide();
 		this.root = (FlyOutContainer) this.getLayoutInflater().inflate(
 				R.layout.activity_main, null);
 

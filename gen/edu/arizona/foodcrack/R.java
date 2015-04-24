@@ -17,17 +17,34 @@ public final class R {
     public static final class drawable {
         public static final int applelogo=0x7f020000;
         public static final int background=0x7f020001;
+<<<<<<< HEAD
         public static final int button_selector_off=0x7f020002;
         public static final int button_selector_on=0x7f020003;
         public static final int fancy_edit_off=0x7f020004;
         public static final int fancy_edit_on=0x7f020005;
         public static final int green_button=0x7f020006;
+=======
+        public static final int blue=0x7f020002;
+        public static final int button_selector_off=0x7f020003;
+        public static final int button_selector_on=0x7f020004;
+        public static final int fancy_edit_off=0x7f020005;
+        public static final int fancy_edit_on=0x7f020006;
+>>>>>>> origin/master
         public static final int ic_launcher=0x7f020007;
         public static final int icon=0x7f020008;
         public static final int iconsmall=0x7f020009;
         public static final int iconwhite=0x7f02000a;
+<<<<<<< HEAD
         public static final int sun=0x7f02000b;
         public static final int toggleselector=0x7f02000c;
+=======
+        public static final int purple=0x7f02000b;
+        public static final int red=0x7f02000c;
+        public static final int silver=0x7f02000d;
+        public static final int sun=0x7f02000e;
+        public static final int teal=0x7f02000f;
+        public static final int toggleselector=0x7f020010;
+>>>>>>> origin/master
     }
     public static final class id {
         public static final int achievementsButton=0x7f08000e;
@@ -81,6 +98,7 @@ public final class R {
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
+
     
  API 14 theme customizations can go here. 
          */
@@ -89,5 +107,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int NoActionBar=0x7f060002;
     }
 }
