@@ -8,6 +8,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -194,6 +195,15 @@ public class GameActivity extends Activity{
 		String userName = Session.getDefaultInstance().getLoggedInUser().getUsername();
 		Statistics stats;
 		stats = DatabaseHelper.getDefaultInstance().getUserStatistics(userName);
+		
+		if (stats == null)
+		{
+			Log.d("DDB", "Null");
+		}
+		else
+		{
+			Log.d("DDB", "NotNull");
+		}
 		
 		if (answer.getText().toString().equals(q.getCorrectResponse())){
 			response.setText(":)");
