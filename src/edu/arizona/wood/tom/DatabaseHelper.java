@@ -41,6 +41,9 @@ public class DatabaseHelper {
 
 	private static final String QUESTION_TABLE = "Questions";
 	private static final String USER_TABLE = "Users";
+	private static final String ACHIEVEMENTS_TABLE = "Achievements";
+	private static final String ANSWERED_LIST_TABLE = "AnsweredList";
+	private static final String STATISTICS_TABLE = "Statistics";
 
 	static String replyTableName = "Reply";
 
@@ -136,15 +139,6 @@ public class DatabaseHelper {
 	public static DatabaseHelper getDefaultInstance() {
 		if (defaultInstance == null) {
 			defaultInstance = new DatabaseHelper();
-			
-			// Testing
-			Log.d("DDB", "Before");
-			List<String> qids = defaultInstance.getAnswered("Testing");
-			Log.d("DDB", qids.size() + " number");
-			for (String q : qids)
-			{
-				Log.d("DDB", q);
-			}
 		}
 
 		return defaultInstance;
@@ -222,7 +216,16 @@ public class DatabaseHelper {
 	 * @return
 	 */
 	public boolean UpdateUserStats(String username, Statistics stats) {
+		try
+		{
+			mapper.save(stats);
+		} catch (Exception e)
+		{
+			return false;
+		}
+		
 		return true;
+		
 	}
 
 	/**
@@ -318,9 +321,32 @@ public class DatabaseHelper {
 	
 	public List<String> getAnswered(String username)
 	{
-	    DynamoDBQueryExpression<String> queryAssigned = new DynamoDBQueryExpression<String>().withHashKeyValues(username);
+		ArrayList<String> answeredIds = new ArrayList<String>();
 
-	    return mapper.query(String.class, queryAssigned);
+		ScanResult result = null;
+		do {
+			ScanRequest req = new ScanRequest();
+			req.setTableName(ANSWERED_LIST_TABLE);
+
+			if (result != null) {
+				req.setExclusiveStartKey(result.getLastEvaluatedKey());
+			}
+
+			result = db.scan(req);
+
+			List<Map<String, AttributeValue>> rows = result.getItems();
+
+			for (Map<String, AttributeValue> map : rows) {
+				AttributeValue qid = map.get("qid");
+				AttributeValue user = map.get("username");
+				if (user != null && user.getS().equals(username))
+				{
+					answeredIds.add(qid.getS());
+				}
+			}
+		} while (result.getLastEvaluatedKey() != null);
+
+		return answeredIds;
 	}
 	
 	public void addAnswered(String username, String qid)
