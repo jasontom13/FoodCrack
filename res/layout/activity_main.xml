@@ -9,45 +9,62 @@
         android:background="#000000"
         android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/achievementsButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_on"
-            android:text="Achievements" />
-
-        <Button
-            android:id="@+id/settingsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_on"
-            android:text="Settings" />
-
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_on"
-            android:text="Logout" />
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:text="Achievements"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/blue"
+        android:background="@drawable/silver"
         android:clickable="false"
         android:onClick="toggleMenu"
         android:orientation="vertical"
         android:padding="8dp" >
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:contentDescription="Menu"
-            android:onClick="toggleMenu"
-            android:src="@drawable/iconwhite" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:contentDescription="Menu"
+                    android:onClick="toggleMenu"
+                    android:src="@drawable/iconwhite" />
+
+                <TextView
+                    android:id="@+id/playerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="PlayerName"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:background="@null"
+                    android:contentDescription="Menu"
+                    android:onClick="logout"
+                    android:src="@drawable/iconwhite" />
+
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

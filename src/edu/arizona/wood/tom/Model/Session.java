@@ -40,4 +40,9 @@ public class Session {
 	public ArrayList<String> getAvailableQuestions() {
 		return this.availableQuestionIds;
 	}
+	
+	public static void logout()
+	{
+		defaultInstance = new Session();
+	}
 }
