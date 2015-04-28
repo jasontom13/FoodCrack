@@ -32,17 +32,22 @@ public class GameActivity extends Activity{
 	ProgressBar progress;
 	Question q;
 	long timer;
+	Button sel1;
+	Button sel2;
+	Button sel3;
+	Button sel4;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		sel1 = (Button) findViewById(R.id.selection1);
+		sel2 = (Button) findViewById(R.id.selection2);
+		sel3 = (Button) findViewById(R.id.selection3);
+		sel4 = (Button) findViewById(R.id.selection4);
 		ImageView foodImage = (ImageView) findViewById(R.id.foodImage);
 		TextView questionText = (TextView) findViewById(R.id.questionText);
-		Button sel1 = (Button) findViewById(R.id.selection1);
-		Button sel2 = (Button) findViewById(R.id.selection2);
-		Button sel3 = (Button) findViewById(R.id.selection3);
-		Button sel4 = (Button) findViewById(R.id.selection4);
 		progress = (ProgressBar) findViewById(R.id.gameTimer);
 		
 		// Shuffle the buttons so we can assign answers.
@@ -158,6 +163,11 @@ public class GameActivity extends Activity{
 		        	v.setBackgroundResource(R.drawable.button_selector_on);
 		        	if (isValid(v,event)){
 		        		GameActivity.this.validate(v);
+		        		sel1.setClickable(false);
+		        		sel2.setClickable(false);
+		        		sel3.setClickable(false);
+		        		sel4.setClickable(false);
+		        		
 		        	}
 		            break;
 		        }
@@ -172,113 +182,6 @@ public class GameActivity extends Activity{
 		sel3.setOnTouchListener(new TouchListener());
 		sel4.setOnTouchListener(new TouchListener());
 
-		
-	
-		
-//		sel1.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//		        switch(event.getAction()) {
-//		        case MotionEvent.ACTION_DOWN:
-//		        	v.setBackgroundResource(R.drawable.button_selector_off);
-//		            break;
-//		        case MotionEvent.ACTION_UP:
-//		        	v.setBackgroundResource(R.drawable.button_selector_on);
-//		        	if (isValid(v,event)){
-//		        		GameActivity.this.validate(v);
-//		        	}
-//		            break;
-//		        }
-//		        
-//		        return false;
-//		    }	
-//		});
-//
-//		sel2.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//		        switch(event.getAction()) {
-//		        case MotionEvent.ACTION_DOWN:
-//		        	v.setBackgroundResource(R.drawable.button_selector_off);
-//		            break;
-//		        case MotionEvent.ACTION_UP:
-//		        	v.setBackgroundResource(R.drawable.button_selector_on);
-//		        	if (isValid(v,event)){
-//		        		//FILL
-//		        	}
-//		            break;
-//		        }
-//		        
-//		        return false;
-//		    }	
-//		});
-//		sel3.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//		        switch(event.getAction()) {
-//		        case MotionEvent.ACTION_DOWN:
-//		        	v.setBackgroundResource(R.drawable.button_selector_off);
-//		            break;
-//		        case MotionEvent.ACTION_UP:
-//		        	v.setBackgroundResource(R.drawable.button_selector_on);
-//		        	if (isValid(v,event)){
-//		        		//FILL
-//		        	}
-//		            break;
-//		        }
-//		        
-//		        return false;
-//		    }	
-//		});
-//		sel4.setOnTouchListener(new OnTouchListener() {
-//
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//		        switch(event.getAction()) {
-//		        case MotionEvent.ACTION_DOWN:
-//		        	v.setBackgroundResource(R.drawable.button_selector_off);
-//		            break;
-//		        case MotionEvent.ACTION_UP:
-//		        	v.setBackgroundResource(R.drawable.button_selector_on);
-//		        	if (isValid(v,event)){
-//		        		//FILL
-//		        	}
-//		            break;
-//		        }
-//		        
-//		        return false;
-//		    }	
-//		});
-//		sel1.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {
-//				v.startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_alpha));
-//				
-//			}
-//		});
-//		sel2.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {
-//				v.startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_alpha));
-//			}
-//		});
-//		sel3.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {
-//				v.startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_alpha));
-//			}
-//		});
-//		sel4.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {
-//				v.startAnimation(AnimationUtils.loadAnimation(GameActivity.this,R.anim.anim_alpha));
-//			}
-//		});
-		
-		//DatabaseHelper.getDefaultInstance().getQuestion(questionId);
 	}
 	
 	protected void validate(View v) {
@@ -287,16 +190,38 @@ public class GameActivity extends Activity{
 		TextView response = (TextView) findViewById(R.id.gameResponseText);
 		final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
 	    fadeIn.setDuration(3000);
-		if (answer.getText().toString().equals(q.getCorrectResponse())){
-			response.setText(":)");
-		}
-		else{
-			response.setText(":(");
-		}
+	    v.setClickable(false);
 		String userName = Session.getDefaultInstance().getLoggedInUser().getUsername();
 		Statistics stats;
 		stats = DatabaseHelper.getDefaultInstance().getUserStatistics(userName);
-		//stats.set
+		
+		if (answer.getText().toString().equals(q.getCorrectResponse())){
+			response.setText(":)");
+			stats.setCorrectlyAnswered(stats.getCorrectlyAnswered()+1);
+			if (stats.getCurrentStreak()<=0){
+				stats.setCurrentStreak(1);
+			}
+			else{
+				stats.setCurrentStreak(stats.getCurrentStreak()+1);
+			}
+			if (stats.getCurrentStreak()>stats.getWinningStreak()){
+				stats.setWinningStreak(stats.getCurrentStreak());
+			}
+		}
+		else{
+			if (stats.getCurrentStreak()<=0){
+				stats.setCurrentStreak(stats.getCurrentStreak()-1);
+			}
+			else{
+				stats.setCurrentStreak(-1);
+			}
+			if (stats.getCurrentStreak()<stats.getLosingStreak()){
+				stats.setLosingStreak(stats.getCurrentStreak());
+			}
+			response.setText(":(");
+		}
+		stats.setQuestionsAnswered(stats.getQuestionsAnswered()+1);
+
 		response.startAnimation(fadeIn);
 		response.setVisibility(View.VISIBLE);
 	}
