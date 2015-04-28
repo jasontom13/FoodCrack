@@ -8,10 +8,10 @@ import java.util.Random;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -22,6 +22,7 @@ import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.asynctasks.ImageLoadTask;
 import edu.arizona.wood.tom.model.Question;
 import edu.arizona.wood.tom.model.Session;
+import edu.arizona.wood.tom.model.Statistics;
 
 public class GameActivity extends Activity{
 	final int TIMERLENGTH = 20000;
@@ -30,6 +31,7 @@ public class GameActivity extends Activity{
 	List<Button> buttons = new ArrayList<Button>();
 	ProgressBar progress;
 	Question q;
+	long timer;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -66,7 +68,7 @@ public class GameActivity extends Activity{
 
 		new CountDownTimer(TIMERLENGTH, 1) {
 		     public void onTick(long millisUntilFinished) {
-
+		    	 timer=TIMERLENGTH-millisUntilFinished;
 		    	 progress.setProgress((int) (TIMERLENGTH-millisUntilFinished)*progress.getMax()/TIMERLENGTH);
 		    	 if (millisUntilFinished<TIMERLENGTH/2){
 		    		 if (!removedFirstQuestion){
@@ -281,13 +283,21 @@ public class GameActivity extends Activity{
 	
 	protected void validate(View v) {
 		Button answer = (Button) v;
+		int timeToAnswer = (int)timer;
 		TextView response = (TextView) findViewById(R.id.gameResponseText);
+		final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+	    fadeIn.setDuration(3000);
 		if (answer.getText().toString().equals(q.getCorrectResponse())){
 			response.setText(":)");
 		}
 		else{
 			response.setText(":(");
 		}
+		String userName = Session.getDefaultInstance().getLoggedInUser().getUsername();
+		Statistics stats;
+		stats = DatabaseHelper.getDefaultInstance().getUserStatistics(userName);
+		//stats.set
+		response.startAnimation(fadeIn);
 		response.setVisibility(View.VISIBLE);
 	}
 	

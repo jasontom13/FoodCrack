@@ -8,11 +8,20 @@ public class Statistics {
 	private String username;
 	private int questionsAnswered = 0;
 	private int correctlyAnswered = 0;
-	private String averageTimeToAnswer = "";
+	private String totalMillisToAnswer = "";
 	private int winningStreak = 0;
 	private int losingStreak = 0;
 	private int currentStreak = 0;
-	private boolean currentStreakWinning = true;
+	private int questionsCreated = 0;
+
+	@DynamoDBAttribute(attributeName="questionsCreated")
+	public int getQuestionsCreated() {
+		return questionsCreated;
+	}
+	
+	public void setQuestionsCreated(int questionsCreated) {
+		this.questionsCreated = questionsCreated;
+	}
 
 	@DynamoDBHashKey(attributeName = "username")
 	public String getUsername() {
@@ -41,13 +50,13 @@ public class Statistics {
 		this.correctlyAnswered = correctlyAnswered;
 	}
 
-	@DynamoDBAttribute(attributeName = "averageTimeToAnswer")
-	public String getAverageTimeToAnswer() {
-		return averageTimeToAnswer;
+	@DynamoDBAttribute(attributeName = "totalMillisToAnswer")
+	public String gettotalMillisToAnswer() {
+		return totalMillisToAnswer;
 	}
 
-	public void setAverageTimeToAnswer(String averageTimeToAnswer) {
-		this.averageTimeToAnswer = averageTimeToAnswer;
+	public void settotalMillisToAnswer(String totalMillisToAnswer) {
+		this.totalMillisToAnswer = totalMillisToAnswer;
 	}
 
 	@DynamoDBAttribute(attributeName = "winningStreak")
@@ -77,12 +86,4 @@ public class Statistics {
 		this.currentStreak = currentStreak;
 	}
 
-	@DynamoDBAttribute(attributeName = "isCurrentStreakWinning")
-	public boolean isCurrentStreakWinning() {
-		return currentStreakWinning;
-	}
-
-	public void setCurrentStreakWinning(boolean currentStreakWinning) {
-		this.currentStreakWinning = currentStreakWinning;
-	}
 }
