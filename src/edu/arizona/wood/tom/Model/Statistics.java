@@ -8,7 +8,7 @@ public class Statistics {
 	private String username;
 	private int questionsAnswered = 0;
 	private int correctlyAnswered = 0;
-	private String totalMillisToAnswer = "";
+	private int totalMillisToAnswer = 0;
 	private int winningStreak = 0;
 	private int losingStreak = 0;
 	private int currentStreak = 0;
@@ -51,11 +51,11 @@ public class Statistics {
 	}
 
 	@DynamoDBAttribute(attributeName = "totalMillisToAnswer")
-	public String gettotalMillisToAnswer() {
+	public int gettotalMillisToAnswer() {
 		return totalMillisToAnswer;
 	}
 
-	public void settotalMillisToAnswer(String totalMillisToAnswer) {
+	public void settotalMillisToAnswer(int totalMillisToAnswer) {
 		this.totalMillisToAnswer = totalMillisToAnswer;
 	}
 
