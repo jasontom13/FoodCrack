@@ -28,6 +28,6 @@ public class SplashActivity extends Activity {
 				startActivity(intent);
 				SplashActivity.this.finish();
 			}
-		}, 100); // Temp number for quicker testing
+		}, 1000); // Temp number for quicker testing
 	}
 }

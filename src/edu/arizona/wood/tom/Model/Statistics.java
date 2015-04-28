@@ -14,11 +14,11 @@ public class Statistics {
 	private int currentStreak = 0;
 	private int questionsCreated = 0;
 
-	@DynamoDBAttribute(attributeName="questionsCreated")
+	@DynamoDBAttribute(attributeName = "questionsCreated")
 	public int getQuestionsCreated() {
 		return questionsCreated;
 	}
-	
+
 	public void setQuestionsCreated(int questionsCreated) {
 		this.questionsCreated = questionsCreated;
 	}

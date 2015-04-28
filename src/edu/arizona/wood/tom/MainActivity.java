@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import edu.arizona.foodcrack.R;
+import edu.arizona.wood.tom.model.Session;
 
 public class MainActivity extends Activity {
 
@@ -25,9 +27,7 @@ public class MainActivity extends Activity {
 
 		this.setContentView(root);
 		Button newGameButton = (Button) findViewById(R.id.newGameButton);
-		Button achievementsButton = (Button) findViewById(R.id.achievementsButton);
-		Button settingsButton = (Button) findViewById(R.id.settingsButton);
-		Button logoutButton = (Button) findViewById(R.id.logoutButton);
+		((TextView) findViewById(R.id.playerName)).setText(Session.getDefaultInstance().getLoggedInUser().getUsername());
 
 		newGameButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -35,30 +35,6 @@ public class MainActivity extends Activity {
 				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
 				Intent i = new Intent(MainActivity.this, GameActivity.class);	
 				startActivity(i);
-			}
-		});
-		
-		achievementsButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
-				//Intent i = new Intent(MainActivity.this, AchievementActivity.class);	
-			}
-		});
-		
-		settingsButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
-				//Intent i = new Intent(MainActivity.this, SettingsActivity.class);	
-			}
-		});
-		
-		logoutButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				v.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.anim_alpha));
-				//Intent i = new Intent(MainActivity.this, GameActivity.class);	
 			}
 		});
 	}
@@ -72,5 +48,14 @@ public class MainActivity extends Activity {
 
 	public void toggleMenu(View v) {
 		this.root.toggleMenu();
+	}
+	
+	public void logout(View v)
+	{
+		Intent i = new Intent(this, LoginActivity.class);
+		startActivity(i);
+		Session.logout();
+		
+		this.finish();
 	}
 }
