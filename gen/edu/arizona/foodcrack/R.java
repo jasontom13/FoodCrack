@@ -33,6 +33,7 @@ public final class R {
         public static final int sun=0x7f02000f;
         public static final int teal=0x7f020010;
         public static final int toggleselector=0x7f020011;
+        public static final int trophy=0x7f020012;
     }
     public static final class id {
         public static final int action_settings=0x7f080010;

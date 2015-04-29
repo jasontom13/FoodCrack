@@ -61,7 +61,7 @@
                     android:background="@null"
                     android:contentDescription="Menu"
                     android:onClick="logout"
-                    android:src="@drawable/iconwhite" />
+                    android:src="@drawable/trophy" />
 
             </RelativeLayout>
         </LinearLayout>
