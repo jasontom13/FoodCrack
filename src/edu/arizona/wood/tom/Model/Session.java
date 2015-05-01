@@ -3,6 +3,8 @@ package edu.arizona.wood.tom.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.arizona.wood.tom.DatabaseHelper;
+
 public class Session {
 	public static Session defaultInstance;
 	private User loggedInUser;
@@ -27,6 +29,11 @@ public class Session {
 
 	public User getLoggedInUser() {
 		return this.loggedInUser;
+	}
+	
+	public Statistics getStats()
+	{
+		return DatabaseHelper.getDefaultInstance().getUserStatistics(loggedInUser.getUsername());
 	}
 
 	public void setAvailableQuestions(List<String> questionIdList) {

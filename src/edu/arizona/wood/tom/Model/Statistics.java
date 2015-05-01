@@ -14,15 +14,6 @@ public class Statistics {
 	private int currentStreak = 0;
 	private int questionsCreated = 0;
 
-	@DynamoDBAttribute(attributeName = "questionsCreated")
-	public int getQuestionsCreated() {
-		return questionsCreated;
-	}
-
-	public void setQuestionsCreated(int questionsCreated) {
-		this.questionsCreated = questionsCreated;
-	}
-
 	@DynamoDBHashKey(attributeName = "username")
 	public String getUsername() {
 		return username;
@@ -51,11 +42,11 @@ public class Statistics {
 	}
 
 	@DynamoDBAttribute(attributeName = "totalMillisToAnswer")
-	public int gettotalMillisToAnswer() {
+	public int getTotalMillisToAnswer() {
 		return totalMillisToAnswer;
 	}
 
-	public void settotalMillisToAnswer(int totalMillisToAnswer) {
+	public void setTotalMillisToAnswer(int totalMillisToAnswer) {
 		this.totalMillisToAnswer = totalMillisToAnswer;
 	}
 
@@ -86,4 +77,12 @@ public class Statistics {
 		this.currentStreak = currentStreak;
 	}
 
+	@DynamoDBAttribute(attributeName = "questionsCreated")
+	public int getQuestionsCreated() {
+		return questionsCreated;
+	}
+
+	public void setQuestionsCreated(int questionsCreated) {
+		this.questionsCreated = questionsCreated;
+	}
 }

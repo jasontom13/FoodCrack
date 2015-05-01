@@ -200,7 +200,6 @@ public class DatabaseHelper {
 	public User getUser(String username, String hash) {
 		try {
 			User user = mapper.load(User.class, username, hash);
-			Log.d(TAG, user.getUsername() + " " + user.getHashword());
 			return user;
 		} catch (Exception e) {
 			Log.d(TAG, "No user found");
@@ -216,16 +215,14 @@ public class DatabaseHelper {
 	 * @return
 	 */
 	public boolean UpdateUserStats(String username, Statistics stats) {
-		try
-		{
+		try {
 			mapper.save(stats);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
-		
+
 		return true;
-		
+
 	}
 
 	/**
@@ -307,20 +304,45 @@ public class DatabaseHelper {
 	}
 
 	public Statistics getUserStatistics(String username) {
-		try {
-			Statistics stats = mapper.load(Statistics.class, username);
-			return stats;
-		} catch (Exception e) {
-			return null;
-		}
+		ScanResult result = null;
+		do {
+			ScanRequest req = new ScanRequest();
+			req.setTableName(STATISTICS_TABLE);
+
+			if (result != null) {
+				req.setExclusiveStartKey(result.getLastEvaluatedKey());
+			}
+
+			result = db.scan(req);
+
+			List<Map<String, AttributeValue>> rows = result.getItems();
+
+			for (Map<String, AttributeValue> map : rows) {
+				AttributeValue user = map.get("username");
+				if (user != null && user.getS().equals(username)) {
+					Statistics stats = new Statistics();
+					stats.setUsername(user.getS());
+					stats.setCorrectlyAnswered(Integer.parseInt(map.get("correctlyAnswered").getN()));
+					stats.setCurrentStreak(Integer.parseInt(map.get("currentStreak").getN()));
+					stats.setLosingStreak(Integer.parseInt(map.get("losingStreak").getN()));
+					stats.setQuestionsAnswered(Integer.parseInt(map.get("questionsAnswered").getN()));
+					stats.setQuestionsCreated(Integer.parseInt(map.get("questionsCreated").getN()));
+					stats.setTotalMillisToAnswer(Integer.parseInt(map.get("totalMillisToAnswer").getN()));
+					stats.setWinningStreak(Integer.parseInt(map.get("winningStreak").getN()));
+					
+					return stats;
+				}
+			}
+		} while (result.getLastEvaluatedKey() != null);
+		
+		return null;
 	}
 
 	public void updateStatistics(Statistics stats) {
 		mapper.save(stats);
 	}
-	
-	public List<String> getAnswered(String username)
-	{
+
+	public List<String> getAnswered(String username) {
 		ArrayList<String> answeredIds = new ArrayList<String>();
 
 		ScanResult result = null;
@@ -339,8 +361,7 @@ public class DatabaseHelper {
 			for (Map<String, AttributeValue> map : rows) {
 				AttributeValue qid = map.get("qid");
 				AttributeValue user = map.get("username");
-				if (user != null && user.getS().equals(username))
-				{
+				if (user != null && user.getS().equals(username)) {
 					answeredIds.add(qid.getS());
 				}
 			}
@@ -348,13 +369,12 @@ public class DatabaseHelper {
 
 		return answeredIds;
 	}
-	
-	public void addAnswered(String username, String qid)
-	{
+
+	public void addAnswered(String username, String qid) {
 		Answered ans = new Answered();
 		ans.setUsername(username);
 		ans.setQid(qid);
-		
+
 		mapper.save(ans);
 	}
 }
