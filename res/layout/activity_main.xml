@@ -79,6 +79,7 @@
                 android:background="@drawable/button_selector_on"
                 android:text="New Game"
                 android:textColor="#FFFFFF" />
+
         </RelativeLayout>
     </LinearLayout>
 
