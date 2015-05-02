@@ -8,6 +8,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -155,6 +156,7 @@ public class GameActivity extends Activity {
 
 	protected void validate(View v) {
 		
+
 		final Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
 		fadeIn.setDuration(FADEDURATION);
 		fadeIn.setAnimationListener(new Animation.AnimationListener() {
@@ -187,7 +189,7 @@ public class GameActivity extends Activity {
 
 		// Increment Q's answered && millisToAnswer
 		stats.setQuestionsAnswered(stats.getQuestionsAnswered() + 1);
-		stats.settotalMillisToAnswer(stats.gettotalMillisToAnswer()
+		stats.setTotalMillisToAnswer(stats.getTotalMillisToAnswer()
 				+ timeToAnswer);
 
 		// Make buttons unresponsive
