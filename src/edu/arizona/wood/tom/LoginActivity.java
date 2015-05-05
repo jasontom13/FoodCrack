@@ -100,9 +100,13 @@ public class LoginActivity extends Activity {
 					UserResponse response = dh.addUser(name, str);
 					if (response == UserResponse.SUCCESS)
 					{
+						User user = new User();
+						user.setUsername(name);
+						user.setHashword(str);
 						// Yay temp toast for success
 						Toast.makeText(getApplicationContext(), "Successfully created user: " + name, Toast.LENGTH_SHORT).show();
 
+						Session.getDefaultInstance().setLoggedInUser(user);
 						Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
 						
 						Intent i = new Intent(LoginActivity.this, MainActivity.class);

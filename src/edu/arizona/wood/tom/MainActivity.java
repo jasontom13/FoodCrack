@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 		Button newGameButton = (Button) findViewById(R.id.newGameButton);
 		((TextView) findViewById(R.id.playerName)).setText(Session
 				.getDefaultInstance().getLoggedInUser().getUsername());
-		updateStats();
+		//updateStats();
 
 		newGameButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -42,6 +42,12 @@ public class MainActivity extends Activity {
 				startActivity(i);
 			}
 		});
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+		updateStats();
 	}
 
 	@Override
@@ -56,21 +62,21 @@ public class MainActivity extends Activity {
 		Statistics stats = Session.getDefaultInstance().getStats();
 		if (stats != null) {
 			((TextView) findViewById(R.id.questionsAnswered)).setText(stats
-					.getQuestionsAnswered());
+					.getQuestionsAnswered()+"");
 			((TextView) findViewById(R.id.correctlyAnswered)).setText(stats
-					.getCorrectlyAnswered());
+					.getCorrectlyAnswered()+"");
 			((TextView) findViewById(R.id.currentStreak)).setText(stats
-					.getCurrentStreak());
+					.getCurrentStreak()+"");
 			((TextView) findViewById(R.id.bestWinning)).setText(stats
-					.getWinningStreak());
+					.getWinningStreak()+"");
 			((TextView) findViewById(R.id.bestLosing)).setText(stats
-					.getLosingStreak());
+					.getLosingStreak()+"");
 			((TextView) findViewById(R.id.questionsCreated)).setText(stats
-					.getQuestionsCreated());
+					.getQuestionsCreated()+"");
 			if (stats.getQuestionsAnswered() != 0) {
-				((TextView) findViewById(R.id.averageTime)).setText(stats
+				((TextView) findViewById(R.id.averageTime)).setText((stats
 						.getTotalMillisToAnswer()
-						/ stats.getQuestionsAnswered());
+						/ stats.getQuestionsAnswered())+"");
 			} else {
 				((TextView) findViewById(R.id.averageTime)).setText("N/A");
 			}

@@ -118,6 +118,10 @@ public class GameActivity extends Activity {
 		timer = new myTimer(TIMERLENGTH, 1);
 		timer.start();
 		response.setVisibility(View.INVISIBLE);
+		sel1.setVisibility(View.VISIBLE);
+		sel2.setVisibility(View.VISIBLE);
+		sel3.setVisibility(View.VISIBLE);
+		sel4.setVisibility(View.VISIBLE);
 		sel1.setOnTouchListener(new TouchListener());
 		sel2.setOnTouchListener(new TouchListener());
 		sel3.setOnTouchListener(new TouchListener());
@@ -182,10 +186,11 @@ public class GameActivity extends Activity {
 		});
 		int timeToAnswer = (int) timeProgressed;
 
-		String userName = Session.getDefaultInstance().getLoggedInUser()
-				.getUsername();
-		Statistics stats;
-		stats = DatabaseHelper.getDefaultInstance().getUserStatistics(userName);
+//		String userName = Session.getDefaultInstance().getLoggedInUser()
+//				.getUsername();
+//		Statistics stats;
+//		stats = DatabaseHelper.getDefaultInstance().getUserStatistics(userName);
+		Statistics stats = Session.getDefaultInstance().getStats();
 
 		// Increment Q's answered && millisToAnswer
 		stats.setQuestionsAnswered(stats.getQuestionsAnswered() + 1);
@@ -232,6 +237,7 @@ public class GameActivity extends Activity {
 				}
 			}
 		}
+		DatabaseHelper.getDefaultInstance().updateStatistics(stats);
 
 		response.startAnimation(fadeIn);
 		response.setVisibility(View.VISIBLE);
