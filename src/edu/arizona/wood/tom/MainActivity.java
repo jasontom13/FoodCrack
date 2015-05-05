@@ -1,5 +1,7 @@
 package edu.arizona.wood.tom;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.Statistics;
+import edu.arizona.wood.tom.model.User;
 
 public class MainActivity extends Activity {
 
@@ -81,6 +84,12 @@ public class MainActivity extends Activity {
 				((TextView) findViewById(R.id.averageTime)).setText("N/A");
 			}
 		}
+		User user = Session.getDefaultInstance().getLoggedInUser();
+		ArrayList<String> answeredQuestions = (ArrayList<String>) DatabaseHelper.getDefaultInstance().getAnswered(user.getUsername());
+		ArrayList<String> allQuestions = DatabaseHelper.getDefaultInstance().getAllQuestionIds();
+		allQuestions.removeAll(answeredQuestions);
+		Session.getDefaultInstance().setAvailableQuestions(allQuestions);
+		
 	}
 
 	public void toggleMenu(View v) {

@@ -26,6 +26,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.model.Question;
+import edu.arizona.wood.tom.model.Session;
+import edu.arizona.wood.tom.model.Statistics;
+import edu.arizona.wood.tom.model.User;
 
 public class QuestionFactoryActivity extends Activity {
 	private LocationListener mLocationListener;
@@ -158,6 +161,10 @@ public class QuestionFactoryActivity extends Activity {
 				q.setResponse2(wrong2);
 				q.setResponse3(wrong3);
 				q.setLocationCreated(locationCreated);
+				
+				Statistics stats = Session.getDefaultInstance().getStats();
+				stats.setQuestionsCreated(stats.getQuestionsCreated()+1);
+				DatabaseHelper.getDefaultInstance().updateStatistics(stats);
 				DatabaseHelper.getDefaultInstance().addQuestion(q);
 				QuestionFactoryActivity.this.finish();
 			}

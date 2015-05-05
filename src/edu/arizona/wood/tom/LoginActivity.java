@@ -1,6 +1,7 @@
 package edu.arizona.wood.tom;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -58,8 +59,10 @@ public class LoginActivity extends Activity {
 					if (user != null)
 					{
 						Session.getDefaultInstance().setLoggedInUser(user);
-						
-						Session.getDefaultInstance().setAvailableQuestions(DatabaseHelper.getDefaultInstance().getAllQuestionIds());
+						ArrayList<String> answeredQuestions = (ArrayList<String>) DatabaseHelper.getDefaultInstance().getAnswered(user.getUsername());
+						ArrayList<String> allQuestions = DatabaseHelper.getDefaultInstance().getAllQuestionIds();
+						allQuestions.removeAll(answeredQuestions);
+						Session.getDefaultInstance().setAvailableQuestions(allQuestions);
 						
 						// Yay, go to main activity, set global user
 						Intent i = new Intent(LoginActivity.this, MainActivity.class);

@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.asynctasks.ImageLoadTask;
+import edu.arizona.wood.tom.model.Achievements;
 import edu.arizona.wood.tom.model.Question;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.Statistics;
@@ -33,7 +33,7 @@ public class GameActivity extends Activity {
 	final int TIMERLENGTH = 20000;
 	boolean removedFirstQuestion = false;
 	boolean removedSecondQuestion = false;
-	List<Button> buttons = new ArrayList<Button>();
+	List<Button> buttons;
 	ProgressBar progress;
 	Question q;
 	long timeProgressed;
@@ -47,6 +47,8 @@ public class GameActivity extends Activity {
 	CountDownTimer timer;
 	ViewSwitcher viewSwitcher;
 	Animation slide_in_left, slide_out_right;
+	ImageView foodImage;
+	ArrayList<String> availableQuestions;
 
 
 	@Override
@@ -63,6 +65,9 @@ public class GameActivity extends Activity {
 		viewSwitcher.setInAnimation(slide_in_left);
 		viewSwitcher.setOutAnimation(slide_out_right);
 		
+		foodImage = (ImageView) findViewById(R.id.foodImage);
+		buttons = new ArrayList<Button>();
+		
 		response = (TextView) findViewById(R.id.gameResponseText);
 
 		// Setup Answer Buttons
@@ -76,12 +81,16 @@ public class GameActivity extends Activity {
 		buttons.add(sel3);
 		buttons.add(sel4);
 		
+		availableQuestions = Session.getDefaultInstance().getAvailableQuestions();
+		
 		setupScreen();
 		
 
 		
 		newGameButton = (Button) findViewById(R.id.newGameButton);
 		mainMenuButton = (Button) findViewById(R.id.mainMenuButton);
+		
+		
 		
 		
 		newGameButton.setOnClickListener(new OnClickListener(){
@@ -132,18 +141,19 @@ public class GameActivity extends Activity {
 		sel3.setOnTouchListener(new TouchListener());
 		sel4.setOnTouchListener(new TouchListener());
 		String qid;
-		qid = Session
-				.getDefaultInstance()
-				.getAvailableQuestions()
-				.get(new Random().nextInt(Session.getDefaultInstance()
-						.getAvailableQuestions().size()));
+		qid = availableQuestions.get(new Random().nextInt(availableQuestions.size()));
+//		qid = Session
+//				.getDefaultInstance()
+//				.getAvailableQuestions()
+//				.get(new Random().nextInt(Session.getDefaultInstance()
+//						.getAvailableQuestions().size()));
 		// qid is now a random question in a list of all available questions,
 		// before getting the question need to verify in table that the user has
 		// not answered this question yet.
 		q = DatabaseHelper.getDefaultInstance().getQuestion(qid);
 		
 		
-		ImageView foodImage = (ImageView) findViewById(R.id.foodImage);
+		
 		// Async task to download question image to imageview
 		new ImageLoadTask(q.getImgUrl(), foodImage).execute();
 
@@ -245,8 +255,13 @@ public class GameActivity extends Activity {
 				}
 			}
 		}
+		
+		updateAchievements();
+		
 		DatabaseHelper.getDefaultInstance().updateStatistics(stats);
-
+		availableQuestions.remove(q.getQuestion());
+		DatabaseHelper.getDefaultInstance().addAnswered(Session.getDefaultInstance().getLoggedInUser().getUsername(), q.getQuestion());
+		
 		response.startAnimation(fadeIn);
 		response.setVisibility(View.VISIBLE);
 
@@ -368,6 +383,40 @@ public class GameActivity extends Activity {
 			return false;
 		}
 
+	}
+	
+	private void updateAchievements(){
+		Statistics stats = Session.getDefaultInstance().getStats();
+		Achievements achievements = Session.getDefaultInstance().getAchievements();
+		int correct = stats.getCorrectlyAnswered();
+		int streak = stats.getCurrentStreak();
+		if (correct==1){
+			achievements.setFirstRight(true);
+		}
+		if (streak==5){
+			achievements.setStreakFive(true);
+		}
+		if (streak==10){
+			achievements.setStreakTen(true);
+		}
+		if (streak==25){
+			achievements.setStreakTwentyFive(true);
+		}
+		if (streak==-5){
+			achievements.setStreakLoseFive(true);
+		}
+		if (correct>=25){
+			achievements.setRightTwentyFive(true);
+			if(correct>=50){
+				achievements.setRightFifty(true);
+				if(correct>=100){
+					achievements.setRightHundred(true);
+				}
+			}
+		}
+		DatabaseHelper.getDefaultInstance().updateAchievements(achievements);
+		
+		
 	}
 
 }
