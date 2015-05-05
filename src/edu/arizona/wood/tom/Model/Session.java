@@ -35,6 +35,11 @@ public class Session {
 	{
 		return DatabaseHelper.getDefaultInstance().getUserStatistics(loggedInUser.getUsername());
 	}
+	
+	public Achievements getAchievements()
+	{
+		return DatabaseHelper.getDefaultInstance().getUserAchievements(loggedInUser.getUsername());
+	}
 
 	public void setAvailableQuestions(List<String> questionIdList) {
 		this.availableQuestionIds = new ArrayList<String>(questionIdList);

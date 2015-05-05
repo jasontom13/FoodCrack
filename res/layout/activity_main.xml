@@ -6,16 +6,158 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"
+        android:background="#ffffff"
         android:orientation="vertical" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center_horizontal"
-            android:text="Achievements"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/achievementsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Achievements"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/achievementsTitle"
+                android:text="First Right"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/firstRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/achievementsTitle"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/firstRight"
+                android:text="Twenty Five Right"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/rightTwentyFive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/firstRight"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/rightTwentyFive"
+                android:text="Fifty Right"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/rightFifty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/rightTwentyFive"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/rightFifty"
+                android:text="Hundred Right"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/rightHundred"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/rightFifty"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/rightHundred"
+                android:text="Losing Streak Five"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/streakLoseFive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/rightHundred"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/streakLoseFive"
+                android:text="Winning Streak Five"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/streakFive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/streakLoseFive"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/streakFive"
+                android:text="Winning Streak Ten"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/streakTen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/streakFive"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/streakTen"
+                android:text="Winning Streak Twenty Five"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/streakTwentyFive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/streakTen"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +181,7 @@
                 android:layout_alignParentLeft="true"
                 android:background="@null"
                 android:onClick="toggleMenu"
-                android:src="@drawable/iconwhite" />
+                android:src="@drawable/trophy" />
 
             <TextView
                 android:id="@+id/playerName"
@@ -57,7 +199,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@null"
                 android:onClick="logout"
-                android:src="@drawable/trophy" />
+                android:src="@drawable/iconlogout" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -79,8 +221,8 @@
                 android:id="@+id/questionsAnswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/trophyButton"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/trophyButton"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -96,8 +238,8 @@
                 android:id="@+id/correctlyAnswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/questionsAnswered"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/questionsAnswered"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -113,8 +255,8 @@
                 android:id="@+id/currentStreak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/correctlyAnswered"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/correctlyAnswered"
                 android:text="0 w"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -130,8 +272,8 @@
                 android:id="@+id/bestWinning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/currentStreak"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/currentStreak"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -147,8 +289,8 @@
                 android:id="@+id/bestLosing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bestWinning"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/bestWinning"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -164,8 +306,8 @@
                 android:id="@+id/questionsCreated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bestLosing"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/bestLosing"
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -181,8 +323,8 @@
                 android:id="@+id/averageTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/questionsCreated"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/questionsCreated"
                 android:text="0 s"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -195,7 +337,6 @@
                 android:background="@drawable/button_selector_on"
                 android:text="New Game"
                 android:textColor="#FFFFFF" />
-
         </RelativeLayout>
     </LinearLayout>
 
