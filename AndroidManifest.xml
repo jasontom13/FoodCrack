@@ -35,6 +35,10 @@
             android:name="edu.arizona.wood.tom.GameActivity"
             android:theme="@style/NoActionBar">
         </activity>
+        <activity
+            android:name="edu.arizona.wood.tom.QuestionFactoryActivity"
+            android:theme="@style/NoActionBar">
+        </activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -118,6 +119,10 @@ public class GameActivity extends Activity {
 		timer = new myTimer(TIMERLENGTH, 1);
 		timer.start();
 		response.setVisibility(View.INVISIBLE);
+		sel1.setClickable(true);
+		sel2.setClickable(true);
+		sel3.setClickable(true);
+		sel4.setClickable(true);
 		sel1.setVisibility(View.VISIBLE);
 		sel2.setVisibility(View.VISIBLE);
 		sel3.setVisibility(View.VISIBLE);
@@ -205,6 +210,7 @@ public class GameActivity extends Activity {
 
 		// Time Out Case
 		if (v == null) {
+			response.setTextColor(Color.parseColor("#9255a4"));
 			response.setText("Out of time!");
 
 			// Update stats
@@ -215,7 +221,8 @@ public class GameActivity extends Activity {
 			Button answer = (Button) v;
 
 			if (answer.getText().toString().equals(q.getCorrectResponse())) {
-				response.setText(":)");
+				response.setTextColor(Color.parseColor("#43c6b9"));
+				response.setText("Correct!");
 				stats.setCorrectlyAnswered(stats.getCorrectlyAnswered() + 1);
 				if (stats.getCurrentStreak() <= 0) {
 					stats.setCurrentStreak(1);
@@ -226,7 +233,8 @@ public class GameActivity extends Activity {
 					stats.setWinningStreak(stats.getCurrentStreak());
 				}
 			} else {
-				response.setText(":(");
+				response.setTextColor(Color.parseColor("#c6202c"));
+				response.setText("Wrong");
 				if (stats.getCurrentStreak() <= 0) {
 					stats.setCurrentStreak(stats.getCurrentStreak() - 1);
 				} else {

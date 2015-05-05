@@ -5,133 +5,109 @@
     android:orientation="vertical"
     android:padding="15dp" >
 
-    <ProgressBar
-        android:id="@+id/gameTimer"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".05"
-        android:max="1000" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight=".4" >
+        android:layout_weight=".05" >
 
-        <ImageView
-            android:id="@+id/foodImage"
+        <ProgressBar
+            android:id="@+id/gameTimer"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".05"
+            android:max="1000" />
+
+        <Button
+            android:id="@+id/newQuestionButton"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:src="@drawable/applelogo" />
-
-        <TextView
-            android:id="@+id/gameResponseText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:visibility="invisible" />
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/transparent"
+            android:text="Send"
+            android:textColor="#FFFFFF" />
     </FrameLayout>
 
-    <TextView
+    <WebView
+        android:id="@+id/webBrowser"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".4" /> 
+
+<!--     <EditText
+        android:id="@+id/urlEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight=".4"
+        android:hint="Enter URL here..."
+        android:textColorHint="#000000"
+        android:ems="10" > 
+
+        <requestFocus />
+    </EditText>-->
+
+    <EditText
         android:id="@+id/addQuestionEditor"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:layout_weight=".25"
         android:hint="Enter A Question..."
+        android:textColorHint="#000000"
         android:typeface="serif" />
 
-    <ViewSwitcher
-        android:id="@+id/viewswitcher"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight=".3"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/answer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".3"
-            android:orientation="vertical" >
+            android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Correct Answer"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
-            <Button
-                android:id="@+id/selection1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:background="@drawable/button_selector_on"
-                android:text="Yes"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/selection2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:background="@drawable/button_selector_on"
-                android:text="This is an answer"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/selection3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:background="@drawable/button_selector_on"
-                android:text="Much wow"
-                android:textColor="#FFFFFF" />
-
-            <Button
-                android:id="@+id/selection4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight=".25"
-                android:background="@drawable/button_selector_on"
-                android:text="Very impress"
-                android:textColor="#FFFFFF" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/answer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight=".3"
-            android:orientation="horizontal" >
+            android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Wrong Answer #1"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight=".5"
-                android:gravity="center" >
+        <EditText
+            android:id="@+id/answer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Wrong Answer #2"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
 
-                <Button
-                    android:id="@+id/newGameButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/button_selector_on"
-                    android:padding="5dp"
-                    android:text="New Game" >
-                </Button>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight=".5"
-                android:gravity="center" >
-
-                <Button
-                    android:id="@+id/mainMenuButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight=".5"
-                    android:background="@drawable/button_selector_on"
-                    android:gravity="center"
-                    android:text="Main Menu" />
-            </LinearLayout>
-        </LinearLayout>
-    </ViewSwitcher>
+        <EditText
+            android:id="@+id/answer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:background="@drawable/button_selector_on"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Wrong Answer #3"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF" />
+    </LinearLayout>
 
 </LinearLayout>

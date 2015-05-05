@@ -38,73 +38,50 @@ public final class R {
         public static final int trophy=0x7f020014;
     }
     public static final class id {
-<<<<<<< HEAD
-        public static final int action_settings=0x7f08001c;
-        public static final int addQuestionEditor=0x7f08001b;
-        public static final int averageTime=0x7f08001a;
-        public static final int bestLosing=0x7f080018;
-        public static final int bestWinning=0x7f080017;
-        public static final int correctlyAnswered=0x7f080015;
-        public static final int currentStreak=0x7f080016;
+        public static final int achievementsTitle=0x7f080011;
+        public static final int action_settings=0x7f08002b;
+        public static final int addQuestionEditor=0x7f080026;
+        public static final int answer1=0x7f080027;
+        public static final int answer2=0x7f080028;
+        public static final int answer3=0x7f080029;
+        public static final int answer4=0x7f08002a;
+        public static final int averageTime=0x7f080023;
+        public static final int bestLosing=0x7f080021;
+        public static final int bestWinning=0x7f080020;
+        public static final int correctlyAnswered=0x7f08001e;
+        public static final int currentStreak=0x7f08001f;
+        public static final int firstRight=0x7f080012;
         public static final int foodImage=0x7f080001;
         public static final int gameResponseText=0x7f080002;
         public static final int gameTimer=0x7f080000;
-        public static final int imageButton1=0x7f080011;
+        public static final int imageButton1=0x7f08001a;
         public static final int loginButton=0x7f08000f;
-=======
-        public static final int achievementsTitle=0x7f080012;
-        public static final int action_settings=0x7f080025;
-        public static final int averageTime=0x7f080024;
-        public static final int bestLosing=0x7f080022;
-        public static final int bestWinning=0x7f080021;
-        public static final int correctlyAnswered=0x7f08001f;
-        public static final int currentStreak=0x7f080020;
-        public static final int firstRight=0x7f080013;
-        public static final int foodImage=0x7f080001;
-        public static final int gameResponseText=0x7f080002;
-        public static final int gameTimer=0x7f080000;
-        public static final int imageButton1=0x7f08001b;
-        public static final int loginButton=0x7f080010;
->>>>>>> origin/master
         public static final int mainMenuButton=0x7f08000a;
         public static final int nameField=0x7f08000c;
         public static final int nameText=0x7f08000b;
         public static final int newGameButton=0x7f080009;
-<<<<<<< HEAD
+        public static final int newQuestionButton=0x7f080024;
         public static final int passField=0x7f08000e;
         public static final int passText=0x7f08000d;
-        public static final int playerName=0x7f080012;
+        public static final int playerName=0x7f08001b;
         public static final int questionText=0x7f080003;
-        public static final int questionsAnswered=0x7f080014;
-        public static final int questionsCreated=0x7f080019;
+        public static final int questionsAnswered=0x7f08001d;
+        public static final int questionsCreated=0x7f080022;
         public static final int registerButton=0x7f080010;
-=======
-        public static final int newQuestionButton=0x7f08000b;
-        public static final int passField=0x7f08000f;
-        public static final int passText=0x7f08000e;
-        public static final int playerName=0x7f08001c;
-        public static final int questionText=0x7f080003;
-        public static final int questionsAnswered=0x7f08001e;
-        public static final int questionsCreated=0x7f080023;
-        public static final int registerButton=0x7f080011;
-        public static final int rightFifty=0x7f080015;
-        public static final int rightHundred=0x7f080016;
-        public static final int rightTwentyFive=0x7f080014;
->>>>>>> origin/master
+        public static final int rightFifty=0x7f080014;
+        public static final int rightHundred=0x7f080015;
+        public static final int rightTwentyFive=0x7f080013;
         public static final int selection1=0x7f080005;
         public static final int selection2=0x7f080006;
         public static final int selection3=0x7f080007;
         public static final int selection4=0x7f080008;
-<<<<<<< HEAD
-        public static final int trophyButton=0x7f080013;
-=======
-        public static final int streakFive=0x7f080018;
-        public static final int streakLoseFive=0x7f080017;
-        public static final int streakTen=0x7f080019;
-        public static final int streakTwentyFive=0x7f08001a;
-        public static final int trophyButton=0x7f08001d;
->>>>>>> origin/master
+        public static final int streakFive=0x7f080017;
+        public static final int streakLoseFive=0x7f080016;
+        public static final int streakTen=0x7f080018;
+        public static final int streakTwentyFive=0x7f080019;
+        public static final int trophyButton=0x7f08001c;
         public static final int viewswitcher=0x7f080004;
+        public static final int webBrowser=0x7f080025;
     }
     public static final class layout {
         public static final int activity_game=0x7f030000;

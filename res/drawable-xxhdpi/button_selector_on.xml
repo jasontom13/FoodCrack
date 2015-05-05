@@ -4,12 +4,12 @@
         <item android:right="5dp" android:top="5dp">
             <shape>
                 <corners android:radius="25dp" />
-                <solid android:color="#8bd1de" />
+                <solid android:color="#e8f5f4" />
             </shape>
         </item>
         <item android:bottom="2dp" android:left="2dp">
             <shape>
-                <solid android:color="#8bd1de" />
+                <solid android:color="#43c6b9" />
                 <stroke android:width="0.5dp" android:color="#43c6b9" />
                 <corners android:radius="30dp" />
                 <padding android:bottom="10dp" android:left="10dp" 

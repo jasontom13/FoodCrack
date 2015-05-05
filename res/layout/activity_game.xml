@@ -30,9 +30,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
+            android:shadowColor="#e8f5f4"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:typeface="serif"
             android:visibility="invisible" />
+
     </FrameLayout>
 
     <TextView

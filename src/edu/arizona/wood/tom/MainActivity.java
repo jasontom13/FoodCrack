@@ -96,6 +96,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void addQuestion(View v) {
-
+		Intent i = new Intent(this, QuestionFactoryActivity.class);
+		startActivity(i);
 	}
 }
