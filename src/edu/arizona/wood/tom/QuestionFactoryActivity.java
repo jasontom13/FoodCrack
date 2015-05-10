@@ -39,6 +39,7 @@ public class QuestionFactoryActivity extends Activity {
 	String url;
 	LocationManager mLocationManager;
 	Location currentLocation;
+	boolean validUrl=false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -95,14 +96,10 @@ public class QuestionFactoryActivity extends Activity {
                 if (result.getType() == HitTestResult.SRC_ANCHOR_TYPE) {
                 	Log.e("SRC_ANCHOR_TYPE",result.toString());
                 	QuestionFactoryActivity.this.url = url;
+                	validUrl=true;
                 }
-
-                if (result.getType() == HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
-                	Log.e("SRC_IMAGE_ANCHOR_TYPE",result.toString());
-                }
-
-                if (result.getType() == HitTestResult.IMAGE_TYPE) {
-                	Log.e("IMAGE_TYPE",result.toString());
+                else{
+                	validUrl=false;
                 }
 				Log.e("URL",url);
 //				QuestionFactoryActivity.this.url = url;
@@ -124,6 +121,7 @@ public class QuestionFactoryActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				double lat, lng;
+				boolean wrongInput=false;
 				if (currentLocation==null){
 					currentLocation=mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 				}
@@ -141,6 +139,10 @@ public class QuestionFactoryActivity extends Activity {
 				String locationCreated=null;
 				if (addresses.size() > 0) 
 				    locationCreated=addresses.get(0).getLocality();
+				
+				removeErrorMessages();
+				
+				
 				String url = QuestionFactoryActivity.this.url;
 //				String url = QuestionFactoryActivity.this.url.getText().toString();
 				String question = QuestionFactoryActivity.this.question
@@ -153,20 +155,48 @@ public class QuestionFactoryActivity extends Activity {
 						.toString();
 				String wrong3 = QuestionFactoryActivity.this.wrong3.getText()
 						.toString();
-				Question q = new Question();
-				q.setImgUrl(url);
-				q.setCorrectResponse(correct);
-				q.setQuestion(question);
-				q.setResponse1(wrong1);
-				q.setResponse2(wrong2);
-				q.setResponse3(wrong3);
-				q.setLocationCreated(locationCreated);
-				
-				Statistics stats = Session.getDefaultInstance().getStats();
-				stats.setQuestionsCreated(stats.getQuestionsCreated()+1);
-				DatabaseHelper.getDefaultInstance().updateStatistics(stats);
-				DatabaseHelper.getDefaultInstance().addQuestion(q);
-				QuestionFactoryActivity.this.finish();
+				if (question.equals("")){
+					QuestionFactoryActivity.this.question.setError("You must enter a question!");
+					wrongInput=true;
+				}
+				if (correct.equals("")){
+					QuestionFactoryActivity.this.correct.setError("Please supply a correct answer!");
+					wrongInput=true;
+				}
+				if (wrong1.equals("")){
+					QuestionFactoryActivity.this.wrong1.setError("Please supply an incorrect answer.");
+					wrongInput=true;
+				}
+				if (wrong2.equals("")){
+					QuestionFactoryActivity.this.wrong2.setError("Please supply an incorrect answer.");
+					wrongInput=true;
+				}
+				if (wrong3.equals("")){
+					QuestionFactoryActivity.this.wrong3.setError("Please supply an incorrect answer.");
+					wrongInput=true;
+				}
+				if (!validUrl){
+					
+					wrongInput=true;
+				}
+				if (!wrongInput){
+					Question q = new Question();
+					q.setImgUrl(url);
+					q.setCorrectResponse(correct);
+					q.setQuestion(question);
+					q.setResponse1(wrong1);
+					q.setResponse2(wrong2);
+					q.setResponse3(wrong3);
+					q.setLocationCreated(locationCreated);
+					q.setCreatedBy(Session.getDefaultInstance().getLoggedInUser().getUsername());
+					
+					Statistics stats = Session.getDefaultInstance().getStats();
+					stats.setQuestionsCreated(stats.getQuestionsCreated()+1);
+					DatabaseHelper.getDefaultInstance().updateStatistics(stats);
+					DatabaseHelper.getDefaultInstance().addQuestion(q);
+					QuestionFactoryActivity.this.finish();
+				}
+
 			}
 
 		});
@@ -220,6 +250,16 @@ public class QuestionFactoryActivity extends Activity {
 
 	    }
 	    return super.onKeyDown(keyCode, event);
+	}
+	
+	private void removeErrorMessages(){
+		QuestionFactoryActivity.this.question.setError(null);
+		QuestionFactoryActivity.this.correct.setError(null);
+		QuestionFactoryActivity.this.wrong1.setError(null);
+		QuestionFactoryActivity.this.wrong2.setError(null);
+		QuestionFactoryActivity.this.wrong3.setError(null);
+		
+		
 	}
 	
 

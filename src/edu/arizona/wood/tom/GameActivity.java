@@ -38,6 +38,7 @@ public class GameActivity extends Activity {
 	Question q;
 	long timeProgressed;
 	TextView response;
+	TextView questionInfo;
 	Button sel1;
 	Button sel2;
 	Button sel3;
@@ -69,6 +70,9 @@ public class GameActivity extends Activity {
 		buttons = new ArrayList<Button>();
 		
 		response = (TextView) findViewById(R.id.gameResponseText);
+		questionInfo = (TextView) findViewById(R.id.questionInfo);
+		
+		availableQuestions = Session.getDefaultInstance().getAvailableQuestions();
 
 		// Setup Answer Buttons
 		sel1 = (Button) findViewById(R.id.selection1);
@@ -81,7 +85,7 @@ public class GameActivity extends Activity {
 		buttons.add(sel3);
 		buttons.add(sel4);
 		
-		availableQuestions = Session.getDefaultInstance().getAvailableQuestions();
+		
 		
 		setupScreen();
 		
@@ -140,6 +144,12 @@ public class GameActivity extends Activity {
 		sel2.setOnTouchListener(new TouchListener());
 		sel3.setOnTouchListener(new TouchListener());
 		sel4.setOnTouchListener(new TouchListener());
+		
+		if (availableQuestions.size()==0){
+			finish();
+		}
+		
+		
 		String qid;
 		qid = availableQuestions.get(new Random().nextInt(availableQuestions.size()));
 //		qid = Session
@@ -171,6 +181,16 @@ public class GameActivity extends Activity {
 		buttons.get(2).setText(q.getResponse2());
 		buttons.get(3).setText(q.getResponse3());
 		questionText.setText(q.getQuestion());
+		String username = q.getCreatedBy();
+		if (username==null){
+			username = "anonymous";
+		}
+		String locationCreated = q.getLocationCreated();
+		if (locationCreated==null){
+			locationCreated="unknown location";
+		}
+		questionInfo.setText("Created By: " + username + " in: " + locationCreated);
+		
 	}
 
 	protected void validate(View v) {
@@ -259,8 +279,8 @@ public class GameActivity extends Activity {
 		updateAchievements();
 		
 		DatabaseHelper.getDefaultInstance().updateStatistics(stats);
-		availableQuestions.remove(q.getQuestion());
-		DatabaseHelper.getDefaultInstance().addAnswered(Session.getDefaultInstance().getLoggedInUser().getUsername(), q.getQuestion());
+		availableQuestions.remove(q.getQid());
+		DatabaseHelper.getDefaultInstance().addAnswered(Session.getDefaultInstance().getLoggedInUser().getUsername(), q.getQid());
 		
 		response.startAnimation(fadeIn);
 		response.setVisibility(View.VISIBLE);

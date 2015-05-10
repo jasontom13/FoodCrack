@@ -39,10 +39,12 @@ public class MainActivity extends Activity {
 		newGameButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				v.startAnimation(AnimationUtils.loadAnimation(
-						MainActivity.this, R.anim.anim_alpha));
-				Intent i = new Intent(MainActivity.this, GameActivity.class);
-				startActivity(i);
+				if (!(Session.getDefaultInstance().getAvailableQuestions().size()==0)){
+					v.startAnimation(AnimationUtils.loadAnimation(
+							MainActivity.this, R.anim.anim_alpha));
+					Intent i = new Intent(MainActivity.this, GameActivity.class);
+					startActivity(i);
+				}
 			}
 		});
 	}
@@ -77,9 +79,9 @@ public class MainActivity extends Activity {
 			((TextView) findViewById(R.id.questionsCreated)).setText(stats
 					.getQuestionsCreated()+"");
 			if (stats.getQuestionsAnswered() != 0) {
-				((TextView) findViewById(R.id.averageTime)).setText((stats
-						.getTotalMillisToAnswer()
-						/ stats.getQuestionsAnswered())+"");
+				((TextView) findViewById(R.id.averageTime)).setText(((stats
+						.getTotalMillisToAnswer()/1000)
+						/ stats.getQuestionsAnswered())+" Seconds");
 			} else {
 				((TextView) findViewById(R.id.averageTime)).setText("N/A");
 			}
