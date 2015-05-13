@@ -3,6 +3,8 @@ package edu.arizona.wood.tom;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +47,18 @@ public class MainActivity extends Activity {
 							MainActivity.this, R.anim.anim_alpha));
 					Intent i = new Intent(MainActivity.this, GameActivity.class);
 					startActivity(i);
+				}
+				else{
+					AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+					alertDialog.setTitle("No more questions!");
+					alertDialog.setMessage("You've exhausted our question list, congratulations.");
+					alertDialog.setButton("Yippee!", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+					});
+					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.show();
 				}
 			}
 		});

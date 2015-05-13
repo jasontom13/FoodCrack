@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -102,8 +104,25 @@ public class GameActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				viewSwitcher.showNext();
-				setupScreen();
+				if (!(availableQuestions.size()==0)){
+					viewSwitcher.showNext();
+					setupScreen();
+				}
+				else{
+					AlertDialog alertDialog = new AlertDialog.Builder(GameActivity.this).create();
+					alertDialog.setTitle("No more questions!");
+					alertDialog.setMessage("You've exhausted our question list, congratulations.");
+					alertDialog.setButton("Yippee!", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						GameActivity.this.finish();
+					}
+					});
+					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.show();
+					
+				}
+				
 			}
 			
 		});

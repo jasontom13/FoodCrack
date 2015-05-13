@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -28,7 +30,6 @@ import edu.arizona.foodcrack.R;
 import edu.arizona.wood.tom.model.Question;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.Statistics;
-import edu.arizona.wood.tom.model.User;
 
 public class QuestionFactoryActivity extends Activity {
 	private LocationListener mLocationListener;
@@ -93,11 +94,18 @@ public class QuestionFactoryActivity extends Activity {
                 final WebView.HitTestResult result = webview.getHitTestResult();
                 Log.e("ONCLICK",result.toString());
 
-                if (result.getType() == HitTestResult.SRC_ANCHOR_TYPE) {
-                	Log.e("SRC_ANCHOR_TYPE",result.toString());
-                	QuestionFactoryActivity.this.url = url;
+                if (result.getType() == HitTestResult.IMAGE_TYPE){
+                	Log.e("IMAGE_TYPE",result.getExtra());
+                	QuestionFactoryActivity.this.url = result.getExtra();
                 	validUrl=true;
                 }
+
+                else if (result.getType() == HitTestResult.SRC_IMAGE_ANCHOR_TYPE){
+                	Log.e("SRC_IMAGE_ANCHOR_TYPE",result.getExtra());
+                	QuestionFactoryActivity.this.url = result.getExtra();
+                	validUrl=true;
+                }
+
                 else{
                 	validUrl=false;
                 }
@@ -141,6 +149,19 @@ public class QuestionFactoryActivity extends Activity {
 				    locationCreated=addresses.get(0).getLocality();
 				
 				removeErrorMessages();
+				
+				if (!validUrl){
+					AlertDialog alertDialog = new AlertDialog.Builder(QuestionFactoryActivity.this).create();
+					alertDialog.setTitle("Incorrect URL");
+					alertDialog.setMessage("The URL must be a link to an image.  Please make sure that the URL contains only an image and try again.");
+					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+					});
+					alertDialog.setIcon(R.drawable.icon);
+					alertDialog.show();
+				}
 				
 				
 				String url = QuestionFactoryActivity.this.url;
