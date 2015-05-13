@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import edu.arizona.foodcrack.R;
+import edu.arizona.wood.tom.model.Achievements;
 import edu.arizona.wood.tom.model.Session;
 import edu.arizona.wood.tom.model.Statistics;
 import edu.arizona.wood.tom.model.User;
@@ -53,6 +54,7 @@ public class MainActivity extends Activity {
 	public void onResume(){
 		super.onResume();
 		updateStats();
+		updateAchievements();
 	}
 
 	@Override
@@ -60,6 +62,27 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.sample, menu);
 		return true;
+	}
+	
+	public void updateAchievements()
+	{
+		Achievements ach = Session.getDefaultInstance().getAchievements();
+		if (ach.isFirstRight())
+			((TextView) findViewById(R.id.firstRight)).setText("X");
+		if (ach.isRightTwentyFive())
+			((TextView) findViewById(R.id.rightTwentyFive)).setText("X");
+		if (ach.isRightFifty())
+			((TextView) findViewById(R.id.rightFifty)).setText("X");
+		if (ach.isRightHundred())
+			((TextView) findViewById(R.id.rightHundred)).setText("X");
+		if (ach.isStreakLoseFive())
+			((TextView) findViewById(R.id.streakLoseFive)).setText("X");
+		if (ach.isStreakFive())
+			((TextView) findViewById(R.id.streakFive)).setText("X");
+		if (ach.isStreakTen())
+			((TextView) findViewById(R.id.streakTen)).setText("X");
+		if (ach.isStreakTwentyFive())
+			((TextView) findViewById(R.id.streakTwentyFive)).setText("X");
 	}
 
 	public void updateStats() {
